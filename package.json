@@ -1,121 +1,23 @@
 {
-  "name": "mirador",
+  "name": "@projectmirador/monorepo",
   "version": "4.0.0-alpha.10",
   "description": "An open-source, web-based 'multi-up' viewer that supports zoom-pan-rotate functionality, ability to display/compare simple images, and images with annotations.",
-  "type": "module",
-  "main": "./dist/mirador.js",
-  "module": "./dist/mirador.es.js",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "sideEffects": false,
-  "exports": {
-    "./src": "./src/index.js",
-    ".": {
-        "import": "./dist/mirador.es.js",
-        "require": "./dist/mirador.js"
-    }
-  },
-  "scripts": {
-    "build": "vite build --config vite.config.js",
-    "clean": "rm -rf ./dist",
-    "lint": "node_modules/.bin/eslint ./ && npm run lint:translations && npm run lint:containers",
-    "lint:containers": "node ./scripts/container-lint.js",
-    "lint:translations": "node ./scripts/i18n-lint.js",
-    "size": "bundlewatch --config bundlewatch.config.json",
-    "start": "vite",
-    "test": "npm run build && npm run lint && npm run size && vitest run"
-  },
-  "license": "Apache-2.0",
   "contributors": [
     "Drew Winget <scipioaffricanus@gmail.com> (https://aeschylus.net/)",
     "Jack Reed <phillipjreed@gmail.com> (https://www.jack-reed.com)"
   ],
-  "repository": "https://github.com/ProjectMirador/mirador",
-  "dependencies": {
-    "@custom-react-hooks/use-element-size": "^1.5.1",
-    "@emotion/cache": "^11.11.0",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@hello-pangea/dnd": "^16.0.1 || ^17.0.0",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.5",
-    "@mui/utils": "^5.13.1",
-    "@mui/x-tree-view": "^6.17.0",
-    "@react-aria/live-announcer": "^3.1.2",
-    "@redux-devtools/extension": "^3.3.0",
-    "classnames": "^2.2.6",
-    "deepmerge": "^4.2.2",
-    "dompurify": "^3.0.0",
-    "i18next": "^21.0.0 || ^22.0.0 || ^23.0.0",
-    "lodash": "^4.17.11",
-    "manifesto.js": "^4.2.0",
-    "merge-refs": "^1.3.0",
-    "normalize-url": "^4.5.0",
-    "openseadragon": "^2.4.2 || ^3.0.0 || 4.0.x || ^4.1.1 || ^5.0.0",
-    "prop-types": "^15.6.2",
-    "rdndmb-html5-to-touch": "^8.0.0",
-    "re-reselect": "^5.0.0",
-    "react-copy-to-clipboard": "^5.0.1",
-    "react-dnd": "^16.0.0",
-    "react-dnd-html5-backend": "^16.0.0",
-    "react-dnd-multi-backend": "^8.0.0",
-    "react-dnd-touch-backend": "^16.0.0",
-    "react-error-boundary": "^4.1.2",
-    "react-full-screen": "^1.1.1",
-    "react-i18next": "^13.0.0 || ^14.0.0 || ^15.0.0",
-    "react-image": "^4.0.1",
-    "react-intersection-observer": "^9.0.0",
-    "react-mosaic-component2": "^6.0.0",
-    "react-redux": "^8.0.0 || ^9.0.0",
-    "react-resize-observer": "^1.1.1",
-    "react-rnd": "^10.1",
-    "react-virtualized-auto-sizer": "^1.0.2",
-    "react-window": "^1.8.5",
-    "redux": "^5.0.0",
-    "redux-saga": "^1.1.3",
-    "redux-thunk": "^3.1.0",
-    "reselect": "^5.0.0",
-    "stylis": "^4.3.0",
-    "stylis-plugin-rtl": "^2.1.1",
-    "url": "^0.11.0",
-    "use-debounce": "^10.0.4",
-    "use-effect-event": "^1.0.2",
-    "uuid": "^8.1.0 || ^9.0.0 || ^10.0.0 || ^11.0.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/projectmirador/mirador.git"
   },
-  "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.1.5",
-    "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.4.3",
-    "@vitejs/plugin-react": "^4.3.3",
-    "@vitest/coverage-v8": "^3.0.5",
-    "@vitest/ui": "^3.0.5",
-    "bundlewatch": "^0.4.0",
-    "chalk": "^5.3.0",
-    "eslint": "^8.11.0",
-    "eslint-config-airbnb": "^19.0.4",
-    "eslint-plugin-flowtype": "^8.0.3",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest-dom": "^5.1.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-testing-library": "^6.2.0",
-    "glob": "^10.3.0",
-    "happy-dom": "^16.8.1",
-    "react": "^18.0.0",
-    "react-dnd-test-backend": "^16.0.1",
-    "react-dom": "^18.0.0",
-    "redux-mock-store": "^1.5.1",
-    "redux-saga-test-plan": "^4.0.0-rc.3",
-    "vite": "^6.0.0",
-    "vitest": "^3.0.5",
-    "vitest-fetch-mock": "^0.4.2"
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "lint": "npm run lint --workspaces",
+    "start": "npm run start --workspace mirador",
+    "test": "npm run test --workspaces"
   },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
-  }
+  "workspaces": [
+    "./packages/mirador"
+  ]
 }

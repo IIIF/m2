@@ -1,6 +1,9 @@
 dist/
 coverage/
 node_modules/
+packages/*/dist/
+packages/*/coverage/
+packages/*/node_modules/
 package-lock.json
 *.log
 *.tgz
