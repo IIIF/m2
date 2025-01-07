@@ -2,6 +2,7 @@ import { render, screen } from '@tests/utils/test-utils';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 
+import { WindowTopBarMenu } from '../../../src/components/WindowTopBarMenu';
 import { WindowTopBarPluginMenu } from '../../../src/components/WindowTopBarPluginMenu';
 
 /** create wrapper */
@@ -27,7 +28,7 @@ class mockComponentA extends React.Component {
 describe('WindowTopBarPluginMenu', () => {
   describe('when there are no plugins present', () => {
     it('renders nothing (and no Button/Menu/PluginHook)', () => {
-      render(<Subject />);
+      render(<WindowTopBarMenu />);
       expect(screen.queryByTestId('testA')).not.toBeInTheDocument();
       expect(screen.queryByRole('button', { name: 'Window options' })).not.toBeInTheDocument();
     });

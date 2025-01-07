@@ -11,21 +11,24 @@ import WorkspaceContext from '../contexts/WorkspaceContext';
  *
  */
 export function WindowTopBarPluginMenu({
-  PluginComponents = [], windowId, menuIcon = <MoreVertIcon />,
+  PluginComponents = [], windowId, menuIcon = <MoreVertIcon />, moreButtons = null,
 }) {
   const { t } = useTranslation();
   const container = useContext(WorkspaceContext);
   const pluginProps = arguments[0]; // eslint-disable-line prefer-rest-params
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
-
-  /** */
+  /**
+   * Set the anchorEl state to the click target
+  */
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
   };
 
-  /** */
+  /**
+   * Set the anchorEl state to null (closing the menu)
+   */
   const handleMenuClose = () => {
     setAnchorEl(null);
     setOpen(false);
@@ -45,7 +48,6 @@ export function WindowTopBarPluginMenu({
       >
         {menuIcon}
       </MiradorMenuButton>
-
       <Menu
         id={windowPluginMenuId}
         container={container?.current}
@@ -61,6 +63,7 @@ export function WindowTopBarPluginMenu({
         open={open}
         onClose={handleMenuClose}
       >
+        {moreButtons}
         <PluginHook handleClose={handleMenuClose} {...pluginProps} />
       </Menu>
     </>
@@ -71,6 +74,7 @@ WindowTopBarPluginMenu.propTypes = {
   anchorEl: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   container: PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
   menuIcon: PropTypes.element,
+  moreButtons: PropTypes.element,
   open: PropTypes.bool,
   PluginComponents: PropTypes.arrayOf(
     PropTypes.node,
