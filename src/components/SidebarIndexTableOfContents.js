@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
 import { TreeView } from '@mui/x-tree-view/TreeView';
@@ -44,16 +45,37 @@ function deepFind(treeNode, id) {
 }
 
 /** Wrap <ScrollTo> to remove the nodeId prop required for MUI's TreeView */
-const ScrollToForTreeItem = ({ children, nodeId, ...props }) => (
-  <ScrollTo
-    {...props}
-  >
-    { children }
-  </ScrollTo>
-);
+function ScrollToForTreeItem(
+  {
+    children, nodeId, containerRef, ...props
+  },
+) {
+  const [containerReady, setContainerReady] = useState(false);
 
+  useEffect(() => {
+    if (containerRef && containerRef.current) {
+      setContainerReady(true);
+    }
+  }, [containerRef]);
+
+  if (containerReady) {
+    return (
+      <ScrollTo
+        containerRef={containerRef}
+        {...props}
+      >
+        {children}
+      </ScrollTo>
+    );
+  }
+  return null;
+}
 ScrollToForTreeItem.propTypes = {
   children: PropTypes.node.isRequired,
+  containerRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+  ]).isRequired,
   nodeId: PropTypes.string.isRequired,
 };
 

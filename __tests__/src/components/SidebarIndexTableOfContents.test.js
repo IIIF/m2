@@ -13,6 +13,8 @@ import manifestVersion3 from '../../fixtures/version-3/structures.json';
  */
 function createWrapper(props) {
   const manifest = Utils.parseManifest(props.manifest ? props.manifest : manifestVersion2);
+  const containerElement = document.createElement('div');
+  const mockRef = { current: containerElement };
   return render(
     <SidebarIndexTableOfContents
       id="something"
@@ -20,7 +22,7 @@ function createWrapper(props) {
       treeStructure={props.treeStructure ? props.treeStructure : manifest.getDefaultTree()}
       visibleNodeIds={props.visibleNodeIds ? props.visibleNodeIds : []}
       expandedNodeIds={props.expandedNodeIds ? props.expandedNodeIds : []}
-      containerRef={props.containerRef}
+      containerRef={mockRef}
       nodeIdToScrollTo={props.nodeIdToScrollTo}
       {...props}
     />,
@@ -33,10 +35,13 @@ function createWrapper(props) {
  * write a reasonable test for it)
  */
 function createInteractiveWrapper({ manifest = manifestVersion3, ...props }) {
+  const containerElement = document.createElement('div');
+  const mockRef = { current: containerElement };
   return render(
     <ConnectedSidebarIndexTableOfContents
       id="something"
       windowId="a"
+      containerRef={mockRef}
       {...props}
     />,
     {
@@ -59,7 +64,7 @@ function createInteractiveWrapper({ manifest = manifestVersion3, ...props }) {
   );
 }
 
-describe('SidebarIndexTableOfContents', () => {
+describe('SidebarIndexTableOfContents', async () => {
   let setCanvas;
 
   beforeEach(() => {
@@ -100,6 +105,7 @@ describe('SidebarIndexTableOfContents', () => {
       },
     });
     expect(screen.getByRole('treeitem')).toBeInTheDocument();
+    unmount();
   });
 
   it('accepts missing nodes property for tree structure and tree nodes', () => {
@@ -242,9 +248,7 @@ describe('SidebarIndexTableOfContents', () => {
     expect(store.getState().windows.a.canvasId).toEqual('http://foo.test/1/canvas/c9');
 
     const leafNode3 = screen.getAllByRole('treeitem')[4];
-    act(() => {
-      leafNode3.focus();
-    });
+    leafNode3.focus();
     await user.keyboard('{Enter}');
     expect(store.getState().windows.a.canvasId).toEqual('http://foo.test/1/canvas/c10');
   });
