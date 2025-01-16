@@ -1,4 +1,6 @@
 import { Utils } from 'manifesto.js';
+
+import collection from '../../fixtures/version-2/collection.json';
 import manifestFixture001 from '../../fixtures/version-2/001.json';
 import manifestFixture002 from '../../fixtures/version-2/002.json';
 import manifestFixture019 from '../../fixtures/version-2/019.json';
@@ -7,6 +9,7 @@ import manifestFixturev3001 from '../../fixtures/version-3/001.json';
 import manifestFixtureWithAProvider from '../../fixtures/version-3/with_a_provider.json';
 import manifestFixtureFg165hz3589 from '../../fixtures/version-2/fg165hz3589.json';
 import manifestFixtureRelated from '../../fixtures/version-2/related.json';
+
 import {
   getManifestoInstance,
   getManifestLocale,
