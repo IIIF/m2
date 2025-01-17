@@ -133,4 +133,58 @@ describe('MiradorCanvas', () => {
       expect(instance.v3VttContent.length).toEqual(1);
     });
   });
+  describe('IIIF image annotations', () => {
+    it('sets preferred=true for prezi v2 image annotations without Choices', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fixture).getSequences()[0].getCanvases()[0],
+      );
+      expect(instance.imageResources[0].preferred).toBe(true);
+    });
+
+    it('sets preferred=true for prezi v3 image annotations without Choices', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fragmentFixtureV3).getSequences()[0].getCanvases()[0],
+      );
+      const firstImgWithoutChoice = instance.imageResources.find((resource) => resource.id === 'https://images.prtd.app/iiif/2/hamilton%2fHL_524_1r_00_PC17/full/739,521/0/default.jpg');
+      expect(firstImgWithoutChoice.preferred).toBe(true);
+      const lastImgWithoutChoice = instance.imageResources.find((resource) => resource.id === 'https://images.prtd.app/iiif/2/hamilton%2fHL_524_1r_00_PCA_RGB-1-3-5_gradi/full/739,521/0/default.jpg');
+      expect(lastImgWithoutChoice.preferred).toBe(true);
+    });
+
+    it('sets preferred=true for default prezi v2 Choice option', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fragmentFixture).getSequences()[0].getCanvases()[0],
+      );
+      const preferredOption = instance.imageResources.find((resource) => resource.id === 'https://prtd.app/image/iiif/2/hamilton%2fHL_524_1r_00_PSC/full/862,1024/0/default.jpg');
+      expect(preferredOption.preferred).toBe(true);
+    });
+
+    it('sets preferred=true for first prezi v3 image Choice option', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fragmentFixtureV3).getSequences()[0].getCanvases()[0],
+      );
+      const preferredOption = instance.imageResources.find((resource) => resource.id === 'https://images.prtd.app/iiif/2/hamilton%2fHL_524_1r_00_PSC/full/,800/0/default.jpg');
+      expect(preferredOption.preferred).toBe(true);
+    });
+
+    it('sets preferred=false for alternative prezi v2 Choice options', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fragmentFixture).getSequences()[0].getCanvases()[0],
+      );
+      const firstAlternative = instance.imageResources.find((img) => img.id === 'https://prtd.app/image/iiif/2/hamilton%2fHL_524_1r_00_TS_Blue/full/862,1024/0/default.png');
+      expect(firstAlternative.preferred).toBe(false);
+      const lastAlternative = instance.imageResources.find((img) => img.id === 'https://prtd.app/image/iiif/2/hamilton%2fHL_524_1r_00_017_F/full/862,1024/0/default.jpg');
+      expect(lastAlternative.preferred).toBe(false);
+    });
+
+    it('sets preferred=false for alternative prezi v3 Choice options', () => {
+      instance = new MiradorCanvas(
+        Utils.parseManifest(fragmentFixtureV3).getSequences()[0].getCanvases()[0],
+      );
+      const firstAlternative = instance.imageResources.find((img) => img.id === 'https://images.prtd.app/iiif/2/hamilton%2fHL_524_1r_00_TS_Blue/full/862,1024/0/default.png');
+      expect(firstAlternative.preferred).toBe(false);
+      const lastAlternative = instance.imageResources.find((img) => img.id === 'https://images.prtd.app/iiif/2/hamilton%2fHL_524_1r_00_017_F/full/,800/0/default.jpg');
+      expect(lastAlternative.preferred).toBe(false);
+    });
+  });
 });

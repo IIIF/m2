@@ -126,10 +126,10 @@ describe('CanvasWorld', () => {
 
   describe('layerIndexOfImageResource', () => {
     const tileSource0 = { id: 'https://stacks.stanford.edu/image/iiif/hg676jb4964%2F0380_796-44/full/full/0/default.jpg' };
-    it('returns undefined by default', () => {
+    it('returns actual index of the image annotation', () => {
       expect(
         new CanvasWorld(canvases).layerIndexOfImageResource(tileSource0),
-      ).toEqual(undefined);
+      ).toEqual(0);
     });
 
     it('returns the inverse of the configured index', () => {
