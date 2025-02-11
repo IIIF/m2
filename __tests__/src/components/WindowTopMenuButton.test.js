@@ -33,7 +33,7 @@ describe('WindowTopMenuButton', () => {
     expect(screen.getByRole('menu')).toBeInTheDocument();
 
     // click something else to close the menu (the windowMenu button is hidden at this point)
-    await user.click(screen.getAllByRole('menuitem')[0]);
+    await user.click(screen.getAllByRole('menuitemradio')[0]);
     expect(screen.queryByRole('menu')).not.toBeInTheDocument();
   });
 

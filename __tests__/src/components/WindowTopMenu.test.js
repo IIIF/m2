@@ -33,16 +33,21 @@ describe('WindowTopMenu', () => {
 
     const menuSections = within(screen.getByRole('menu')).getAllByRole('presentation');
     expect(menuSections).toHaveLength(2);
-    expect(menuSections[0]).toHaveTextContent('View');
-    expect(menuSections[1]).toHaveTextContent('Thumbnails');
 
-    const menuItems = screen.getAllByRole('menuitem');
-    expect(menuItems).toHaveLength(5);
-    expect(menuItems[0]).toHaveTextContent('Single');
-    expect(menuItems[1]).toHaveTextContent('Gallery');
-    expect(menuItems[2]).toHaveTextContent('Off');
-    expect(menuItems[3]).toHaveTextContent('Bottom');
-    expect(menuItems[4]).toHaveTextContent('Right');
+    expect(menuSections[0]).toHaveTextContent('View');
+    const menus = within(screen.getByRole('menu')).getAllByRole('menubar');
+
+    const viewItems = within(menus[0]).getAllByRole('menuitemradio');
+    expect(viewItems).toHaveLength(2);
+    expect(viewItems[0]).toHaveTextContent('Single');
+    expect(viewItems[1]).toHaveTextContent('Gallery');
+
+    expect(menuSections[1]).toHaveTextContent('Thumbnails');
+    const thumbnailItems = within(menus[1]).getAllByRole('menuitemradio');
+    expect(thumbnailItems).toHaveLength(3);
+    expect(thumbnailItems[0]).toHaveTextContent('Off');
+    expect(thumbnailItems[1]).toHaveTextContent('Bottom');
+    expect(thumbnailItems[2]).toHaveTextContent('Right');
   });
 
   it('does not display unless open', () => {
@@ -66,7 +71,7 @@ describe('WindowTopMenu', () => {
     />);
 
     // click a menu item should close the menu
-    const menuItems = screen.getAllByRole('menuitem');
+    const menuItems = screen.getAllByRole('menuitemradio');
     await user.click(menuItems[0]);
     expect(handleClose).toHaveBeenCalledTimes(1);
     expect(toggleDraggingEnabled).toHaveBeenCalledTimes(1);

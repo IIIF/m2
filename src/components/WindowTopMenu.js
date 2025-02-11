@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import Menu from '@mui/material/Menu';
 import ListSubheader from '@mui/material/ListSubheader';
+import Popover from '@mui/material/Popover';
 import PropTypes from 'prop-types';
 import WindowThumbnailSettings from '../containers/WindowThumbnailSettings';
 import WindowViewSettings from '../containers/WindowViewSettings';
@@ -28,7 +28,7 @@ export function WindowTopMenu({
   const pluginProps = arguments[0]; // eslint-disable-line prefer-rest-params
 
   return (
-    <Menu
+    <Popover
       container={container?.current}
       anchorOrigin={{
         horizontal: 'right',
@@ -46,12 +46,13 @@ export function WindowTopMenu({
       orientation="horizontal"
       anchorEl={anchorEl}
       open={open}
+      role="menu"
     >
       <WindowViewSettings windowId={windowId} handleClose={handleClose} />
       {showThumbnailNavigationSettings
         && <WindowThumbnailSettings windowId={windowId} handleClose={handleClose} />}
       <PluginHookWithHeader {...pluginProps} />
-    </Menu>
+    </Popover>
   );
 }
 
