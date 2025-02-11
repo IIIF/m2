@@ -46,6 +46,8 @@ export class ThumbnailCanvasGrouping extends PureComponent {
     } = data;
     const currentGroupings = canvasGroupings[index];
     const SPACING = 8;
+    const isSelected = currentGroupings.map(canvas => canvas.id).includes(currentCanvasId);
+
     return (
       <div
         style={{
@@ -58,6 +60,7 @@ export class ThumbnailCanvasGrouping extends PureComponent {
         }}
         className={ns('thumbnail-nav-container')}
         role="gridcell"
+        aria-selected={isSelected}
         aria-colindex={index + 1}
       >
         <StyledCanvas
@@ -73,10 +76,10 @@ export class ThumbnailCanvasGrouping extends PureComponent {
               outlineOffset: '-2px',
             },
             height: (position === 'far-right') ? 'auto' : `${height - SPACING}px`,
-            outline: currentGroupings.map(canvas => canvas.id).includes(currentCanvasId) ? `2px solid ${theme.palette.primary.main}` : 0,
-            ...(currentGroupings.map(canvas => canvas.id).includes(currentCanvasId) && {
+            outline: isSelected ? `2px solid ${theme.palette.primary.main}` : 0,
+            ...isSelected && {
               outlineOffset: '3px',
-            }),
+            },
             width: (position === 'far-bottom') ? 'auto' : `${style.width}px`,
           })}
           className={classNames(

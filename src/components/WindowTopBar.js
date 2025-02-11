@@ -39,7 +39,7 @@ export function WindowTopBar({
   removeWindow, windowId, toggleWindowSideBar,
   maximizeWindow = () => {}, maximized = false, minimizeWindow = () => {}, allowClose = true, allowMaximize = true,
   focusWindow = () => {}, allowFullscreen = false, allowTopMenuButton = true, allowWindowSideBar = true,
-  component = 'nav',
+  component = 'nav', sideBarOpen = false,
 }) {
   const { t } = useTranslation();
   const ownerState = arguments[0]; // eslint-disable-line prefer-rest-params
@@ -55,6 +55,7 @@ export function WindowTopBar({
       >
         {allowWindowSideBar && (
           <MiradorMenuButton
+            aria-expanded={sideBarOpen}
             aria-label={t('toggleWindowSideBar')}
             onClick={toggleWindowSideBar}
             className={ns('window-menu-btn')}
@@ -109,6 +110,7 @@ WindowTopBar.propTypes = {
   maximizeWindow: PropTypes.func,
   minimizeWindow: PropTypes.func,
   removeWindow: PropTypes.func.isRequired,
+  sideBarOpen: PropTypes.bool,
   toggleWindowSideBar: PropTypes.func.isRequired,
   windowDraggable: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   windowId: PropTypes.string.isRequired,
