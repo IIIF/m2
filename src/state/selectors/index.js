@@ -13,3 +13,5 @@ export * from './sequences';
 export * from './auth';
 export * from './utils';
 export * from './viewer';
+export * from './thumbnails';
+export * from './wrappers';

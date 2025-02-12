@@ -5,7 +5,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 import { VariableSizeList as List } from 'react-window';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import CanvasWorld from '../lib/CanvasWorld';
+import { useCanvasWorldService } from '../hooks';
 import ThumbnailCanvasGrouping from '../containers/ThumbnailCanvasGrouping';
 import ns from '../config/css-ns';
 /**
@@ -19,6 +19,7 @@ export function ThumbnailNavigation({
   const spacing = 8; // 2 * (2px margin + 2px border + 2px padding + 2px padding)
   const gridRef = useRef();
   const previousView = useRef(view);
+  const canvasWorlds = useCanvasWorldService();
 
   useEffect(() => {
     if (previousView.current !== view && position !== 'off') {
@@ -61,7 +62,7 @@ export function ThumbnailNavigation({
     const canvases = canvasGroupings[index];
     if (!canvases) return thumbnailNavigation.width + spacing;
 
-    const world = new CanvasWorld(canvases);
+    const world = canvasWorlds.get(canvases);
     const bounds = world.worldBounds();
     switch (position) {
       case 'far-right': {

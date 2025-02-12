@@ -8,6 +8,7 @@ import { IIIFThumbnail } from '../../../src/components/IIIFThumbnail';
 function createWrapper(props) {
   return render(
     <IIIFThumbnail
+      resource={{}}
       {...props}
     />,
   );

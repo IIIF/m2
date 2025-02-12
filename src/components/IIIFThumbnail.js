@@ -4,8 +4,8 @@ import {
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import { useInView } from 'react-intersection-observer';
-import getThumbnail from '../lib/ThumbnailFactory';
 import { IIIFResourceLabel } from './IIIFResourceLabel';
+import { useThumbnailService } from '../hooks';
 
 const Root = styled('div', { name: 'IIIFThumbnail', slot: 'root' })({});
 
@@ -24,11 +24,11 @@ const Image = styled('img', { name: 'IIIFThumbnail', slot: 'image' })(() => ({
  */
 const LazyLoadedImage = ({
   border = false, placeholder, style = {}, thumbnail = null,
-  resource, maxHeight = null, maxWidth = null, thumbnailsConfig = {}, ...props
+  resource, maxHeight = null, maxWidth = null, ...props
 }) => {
   const { ref, inView } = useInView();
   const [loaded, setLoaded] = useState(false);
-
+  const thumbnailService = useThumbnailService(maxHeight, maxWidth);
   /**
    * Handles the intersection (visibility) of a given thumbnail, by requesting
    * the image and then updating the state.
@@ -42,12 +42,12 @@ const LazyLoadedImage = ({
   const image = useMemo(() => {
     if (thumbnail) return thumbnail;
 
-    const i = getThumbnail(resource, { ...thumbnailsConfig, maxHeight, maxWidth });
+    const i = thumbnailService.get(resource);
 
     if (i && i.url) return i;
 
     return undefined;
-  }, [resource, thumbnail, maxWidth, maxHeight, thumbnailsConfig]);
+  }, [resource, thumbnail, thumbnailService]);
 
   const imageStyles = useMemo(() => {
     const styleProps = {
@@ -128,7 +128,6 @@ LazyLoadedImage.propTypes = {
     url: PropTypes.string.isRequired,
     width: PropTypes.number,
   }),
-  thumbnailsConfig: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 };
 
 const defaultPlaceholder = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMMDQmtBwADgwF/Op8FmAAAAABJRU5ErkJggg==';
@@ -147,7 +146,6 @@ export function IIIFThumbnail({
   resource,
   style = {},
   thumbnail = null,
-  thumbnailsConfig = {},
 }) {
   const ownerState = arguments[0]; // eslint-disable-line prefer-rest-params
 
@@ -159,7 +157,6 @@ export function IIIFThumbnail({
         resource={resource}
         maxHeight={maxHeight}
         maxWidth={maxWidth}
-        thumbnailsConfig={thumbnailsConfig}
         style={style}
         border={border}
       />
@@ -189,6 +186,5 @@ IIIFThumbnail.propTypes = {
     url: PropTypes.string.isRequired,
     width: PropTypes.number,
   }),
-  thumbnailsConfig: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   variant: PropTypes.oneOf(['inside', 'outside']), // eslint-disable-line react/no-unused-prop-types
 };

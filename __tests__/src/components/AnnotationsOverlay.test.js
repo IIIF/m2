@@ -2,10 +2,10 @@ import { cloneElement } from 'react';
 import { render, screen } from '@tests/utils/test-utils';
 import OpenSeadragon from 'openseadragon';
 import { Utils } from 'manifesto.js';
+import { getCanvasWorld } from '../../utils/mirador-wrappers';
 import { AnnotationsOverlay } from '../../../src/components/AnnotationsOverlay';
 import OpenSeadragonCanvasOverlay from '../../../src/lib/OpenSeadragonCanvasOverlay';
 import AnnotationList from '../../../src/lib/AnnotationList';
-import CanvasWorld from '../../../src/lib/CanvasWorld';
 import fixture from '../../fixtures/version-2/019.json';
 
 const canvases = Utils.parseManifest(fixture).getSequences()[0].getCanvases();
@@ -25,7 +25,7 @@ const createWrapper = (props) => {
       windowId="base"
       config={{}}
       updateViewport={vi.fn()}
-      canvasWorld={new CanvasWorld(canvases)}
+      canvasWorld={getCanvasWorld(canvases)}
       {...props}
     />
   );

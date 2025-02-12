@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import flatten from 'lodash/flatten';
 import CanvasGroupings from '../../lib/CanvasGroupings';
-import MiradorCanvas from '../../lib/MiradorCanvas';
-import { miradorSlice } from './utils';
+import { getMiradorCanvasWrapper } from './wrappers';
+import { miradorSlice, EMPTY_ARRAY } from './utils';
 import { getWindow } from './getters';
 import { getSequence } from './sequences';
 import { getWindowViewType } from './windows';
@@ -17,7 +17,7 @@ export const selectInfoResponses = state => miradorSlice(state).infoResponses;
 
 export const getCanvases = createSelector(
   [getSequence],
-  sequence => (sequence && sequence.getCanvases()) || [],
+  sequence => (sequence && sequence.getCanvases()) || EMPTY_ARRAY,
 );
 
 /**
@@ -69,7 +69,7 @@ export const getCurrentCanvas = createSelector(
  */
 export const getVisibleCanvasIds = createSelector(
   [getWindow],
-  window => (window && (window.visibleCanvases || (window.canvasId && [window.canvasId]))) || [],
+  window => (window && (window.visibleCanvases || (window.canvasId && [window.canvasId]))) || EMPTY_ARRAY,
 );
 
 /**
@@ -121,7 +121,7 @@ export const getCanvasGrouping = createSelector(
     (state, { canvasId }) => canvasId,
   ],
   (groupings, canvasId) => (groupings
-      && groupings.find(group => group.some(c => c.id === canvasId))) || [],
+      && groupings.find(group => group.some(c => c.id === canvasId))) || EMPTY_ARRAY,
 );
 
 /**
@@ -211,9 +211,10 @@ export const getCanvasDescription = createSelector(
 export const getVisibleCanvasNonTiledResources = createSelector(
   [
     getVisibleCanvases,
+    getMiradorCanvasWrapper,
   ],
-  canvases => flatten(canvases
-    .map(canvas => new MiradorCanvas(canvas).imageResources))
+  (canvases, getMiradorCanvas) => flatten(canvases
+    .map(canvas => getMiradorCanvas(canvas).imageResources))
     .filter(resource => resource.getServices().length < 1),
 );
 
@@ -226,9 +227,10 @@ export const getVisibleCanvasNonTiledResources = createSelector(
 export const getVisibleCanvasTextResources = createSelector(
   [
     getVisibleCanvases,
+    getMiradorCanvasWrapper,
   ],
-  canvases => flatten(canvases
-    .map(canvas => new MiradorCanvas(canvas).textResources)),
+  (canvases, getMiradorCanvas) => flatten(canvases
+    .map(canvas => getMiradorCanvas(canvas).textResources)),
 );
 
 /**
@@ -240,9 +242,10 @@ export const getVisibleCanvasTextResources = createSelector(
 export const getVisibleCanvasVideoResources = createSelector(
   [
     getVisibleCanvases,
+    getMiradorCanvasWrapper,
   ],
-  canvases => flatten(canvases
-    .map(canvas => new MiradorCanvas(canvas).videoResources)),
+  (canvases, getMiradorCanvas) => flatten(canvases
+    .map(canvas => getMiradorCanvas(canvas).videoResources)),
 );
 
 /**
@@ -254,9 +257,10 @@ export const getVisibleCanvasVideoResources = createSelector(
 export const getVisibleCanvasCaptions = createSelector(
   [
     getVisibleCanvases,
+    getMiradorCanvasWrapper,
   ],
-  canvases => flatten(canvases.map(canvas => {
-    const miradorCanvas = new MiradorCanvas(canvas);
+  (canvases, getMiradorCanvas) => flatten(canvases.map(canvas => {
+    const miradorCanvas = getMiradorCanvas(canvas);
     // prefer v3, fallback to v2, which can also be an empty array if no captions exist.
     if (miradorCanvas.v3VttContent.length) return miradorCanvas.v3VttContent;
     return miradorCanvas.v2VttContent;
@@ -272,9 +276,10 @@ export const getVisibleCanvasCaptions = createSelector(
 export const getVisibleCanvasAudioResources = createSelector(
   [
     getVisibleCanvases,
+    getMiradorCanvasWrapper,
   ],
-  canvases => flatten(canvases
-    .map(canvas => new MiradorCanvas(canvas).audioResources)),
+  (canvases, getMiradorCanvas) => flatten(canvases
+    .map(canvas => getMiradorCanvas(canvas).audioResources)),
 );
 
 /**
@@ -290,15 +295,15 @@ export const selectInfoResponse = createSelector(
   [
     (state, { infoId }) => infoId,
     getCanvas,
+    getMiradorCanvasWrapper,
     selectInfoResponses,
   ],
-  (infoId, canvas, infoResponses) => {
+  (infoId, canvas, getMiradorCanvas, infoResponses) => {
     let iiifServiceId = infoId;
 
     if (!infoId) {
       if (!canvas) return undefined;
-      const miradorCanvas = new MiradorCanvas(canvas);
-      const image = miradorCanvas.iiifImageResources[0];
+      const image = getMiradorCanvas(canvas).iiifImageResources[0];
       iiifServiceId = image && image.getServices()[0].id;
     }
 

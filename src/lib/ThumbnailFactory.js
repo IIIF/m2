@@ -51,9 +51,10 @@ function iiifImageService(resource) {
 /** */
 class ThumbnailFactory {
   /** */
-  constructor(resource, iiifOpts = {}) {
-    this.resource = resource;
+  constructor(iiifOpts = {}, { getMiradorCanvas, getMiradorManifest }) {
     this.iiifOpts = iiifOpts;
+    this.getMiradorCanvas = getMiradorCanvas;
+    this.getMiradorManifest = getMiradorManifest;
   }
 
   /** */
@@ -66,8 +67,7 @@ class ThumbnailFactory {
    * @param {Object} canvas A Manifesto Canvas
    * @return {Object} A Manifesto Image Resource
    */
-  static getPreferredImage(canvas) {
-    const miradorCanvas = new MiradorCanvas(canvas);
+  static getPreferredImage(miradorCanvas) {
     return miradorCanvas.iiifImageResources[0] || miradorCanvas.imageResource;
   }
 
@@ -264,7 +264,7 @@ class ThumbnailFactory {
     }
 
     if (resource.isManifest()) {
-      const miradorManifest = new MiradorManifest(resource);
+      const miradorManifest = this.getMiradorManifest(resource);
       const canvas = miradorManifest.startCanvas || miradorManifest.canvasAt(0);
       if (canvas) return this.getSourceContentResource(canvas);
 
@@ -272,7 +272,7 @@ class ThumbnailFactory {
     }
 
     if (resource.isCanvas()) {
-      const image = ThumbnailFactory.getPreferredImage(resource);
+      const image = ThumbnailFactory.getPreferredImage(this.getMiradorCanvas(resource));
       if (image) return this.getSourceContentResource(image);
 
       return undefined;
@@ -290,11 +290,11 @@ class ThumbnailFactory {
    * @return {Object|undefined} A thumbnail representing the resource, or undefined if none could
    * be determined
    */
-  get() {
-    if (!this.resource) return undefined;
+  get(resource) {
+    if (!resource) return undefined;
 
     // Determine which content resource we should use to derive a thumbnail
-    const sourceContentResource = this.getSourceContentResource(this.resource);
+    const sourceContentResource = this.getSourceContentResource(resource);
     if (!sourceContentResource) return undefined;
 
     // Special treatment for external resources
@@ -305,8 +305,14 @@ class ThumbnailFactory {
 }
 
 /** */
-function getBestThumbnail(resource, iiifOpts) {
-  return new ThumbnailFactory(resource, iiifOpts).get();
+function getBestThumbnail(resource, iiifOpts = {}) {
+  return new ThumbnailFactory(
+    iiifOpts,
+    {
+      getMiradorCanvas: (r) => new MiradorCanvas(r),
+      getMiradorManifest: (r) => new MiradorManifest(r),
+    },
+  ).get(resource);
 }
 
 export { ThumbnailFactory };

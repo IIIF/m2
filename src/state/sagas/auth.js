@@ -4,7 +4,6 @@ import {
 import { Utils } from 'manifesto.js';
 import flatten from 'lodash/flatten';
 import ActionTypes from '../actions/action-types';
-import MiradorCanvas from '../../lib/MiradorCanvas';
 import {
   addAuthenticationRequest,
   resolveAuthenticationRequest,
@@ -18,6 +17,7 @@ import {
   getConfig,
   getAuth,
   getAccessTokens,
+  getMiradorCanvasWrapper,
 } from '../selectors';
 import { fetchInfoResponse } from './iiif';
 
@@ -42,10 +42,9 @@ export function* refetchInfoResponses({ serviceId }) {
     Object.keys(windows).map(windowId => select(getVisibleCanvases, { windowId })),
   );
 
-  const visibleImageApiIds = flatten(flatten(canvases).map((canvas) => {
-    const miradorCanvas = new MiradorCanvas(canvas);
-    return miradorCanvas.imageServiceIds;
-  }));
+  const getMiradorCanvas = yield select(getMiradorCanvasWrapper);
+
+  const visibleImageApiIds = flatten(flatten(canvases).map((canvas) => getMiradorCanvas(canvas).imageServiceIds));
 
   const infoResponses = yield select(selectInfoResponses);
   /** */
