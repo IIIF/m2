@@ -62,11 +62,11 @@ export function WorkspaceExport({
       </DialogTitle>
 
       <DialogContent>
-        <Accordion elevation={2}>
+        <Accordion slotProps={{ heading: { component: 'h4' } }} elevation={2}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
           >
-            <Typography variant="h4">{t('viewWorkspaceConfiguration')}</Typography>
+            <Typography>{t('viewWorkspaceConfiguration')}</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ overflow: 'scroll' }}>
             {children}

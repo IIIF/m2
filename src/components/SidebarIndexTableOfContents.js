@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
-import { TreeView } from '@mui/x-tree-view/TreeView';
+import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
+import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import { ScrollTo } from './ScrollTo';
 
 const StyledVisibleNode = styled('div')(() => ({
-
 }));
+
 /** */
 function getStartCanvasId(node) {
   const jsonld = node.data.__jsonld; // eslint-disable-line no-underscore-dangle
@@ -26,7 +26,7 @@ function getStartCanvasId(node) {
   return node.data.getCanvasIds()[0];
 }
 
-/** Traverse through the manifesto tree to find a node with a given id */
+/** */
 function deepFind(treeNode, id) {
   if (treeNode.id === id) {
     return treeNode;
@@ -43,42 +43,44 @@ function deepFind(treeNode, id) {
   return result;
 }
 
-/** Wrap <ScrollTo> to remove the nodeId prop required for MUI's TreeView */
-const ScrollToForTreeItem = ({ children, nodeId, ...props }) => (
-  <ScrollTo
-    {...props}
-  >
-    { children }
+/** */
+const ScrollToForTreeItem = ({ children, itemId, ...props }) => (
+  <ScrollTo {...props}>
+    {children}
   </ScrollTo>
 );
 
 ScrollToForTreeItem.propTypes = {
   children: PropTypes.node.isRequired,
-  nodeId: PropTypes.string.isRequired,
+  itemId: PropTypes.string.isRequired,
 };
 
+/** */
+const CollapseIcon = (props) => <ExpandMoreIcon {...props} color="action" />;
+/** */
+const ExpandIcon = (props) => <ChevronRightIcon {...props} color="action" />;
 /** */
 export function SidebarIndexTableOfContents({
   toggleNode, expandNodes, setCanvas, windowId,
   treeStructure, visibleNodeIds, expandedNodeIds, containerRef, nodeIdToScrollTo,
 }) {
   /** */
-  const handleNodeSelect = (event, nodeId) => {
+  const handleNodeSelect = (event, itemId) => {
     if (event.key === ' ' || event.key === 'Spacebar') {
-      toggleNode(nodeId);
+      toggleNode(itemId);
     }
 
-    selectTreeItem(nodeId);
+    selectTreeItem(itemId);
   };
 
   /** */
-  const handleNodeToggle = (_event, nodeIds) => {
-    expandNodes(nodeIds);
+  const handleNodeToggle = (_event, itemIds) => {
+    expandNodes(itemIds);
   };
 
   /** */
-  const selectTreeItem = (nodeId) => {
-    const node = deepFind(treeStructure, nodeId);
+  const selectTreeItem = (itemId) => {
+    const node = deepFind(treeStructure, itemId);
 
     // Do not select if there are no canvases listed or it has children
     if (!node.data.getCanvasIds()
@@ -95,75 +97,50 @@ export function SidebarIndexTableOfContents({
     return null;
   }
 
-  /** Render the tree structure recursively */
+  /** */
   const renderTree = (node) => (
     <ScrollToForTreeItem
       containerRef={containerRef}
       key={node.id}
-      nodeId={node.id}
-      offsetTop={96} // offset for the height of the form above
+      itemId={node.id}
+      offsetTop={96}
       scrollTo={nodeIdToScrollTo === node.id}
     >
       <TreeItem
-        nodeId={node.id}
-        sx={{
-          '& .MuiTreeItem-content': {
-            alignItems: 'flex-start',
-            borderLeft: '1px solid transparent',
-            padding: '8px 16px 8px 0',
-            width: 'auto',
-          },
-          '& .MuiTreeItem-group': {
-            borderLeft: '1px solid',
-            borderLeftColor: 'grey.300',
-          },
-          '& .MuiTreeItem-iconContainer': {
-            paddingBlockStart: 0.5,
-          },
-          '& .MuiTreeItem-label': {
-            paddingLeft: 0,
-          },
-          '& .MuiTreeItem-root': {
-            '&:focus > .MuiTreeItem-content': {
-              backgroundColor: 'action.selected',
-            },
-            '&:hover > .MuiTreeItem-content': {
-              backgroundColor: 'action.hover',
-            },
-            '&:hover > .MuiTreeItem-content .MuiTreeItem-label, &:focus > .MuiTreeItem-content .MuiTreeItem-label, &.MuiTreeItem-selected > .MuiTreeItem-content .MuiTreeItem-label, &.MuiTreeItem-selected > .MuiTreeItem-content .MuiTreeItem-label:hover, &.MuiTreeItem-selected:focus > .MuiTreeItem-content .MuiTreeItem-label': {
-              backgroundColor: 'transparent',
-            },
-          },
-        }}
+        itemId={node.id}
         label={(
           <StyledVisibleNode
             sx={theme => ({
               backgroundColor: visibleNodeIds.indexOf(node.id) !== -1
-              && alpha(theme.palette.highlights?.primary || theme.palette.action.selected, 0.35),
+                && alpha(theme.palette.highlights?.primary || theme.palette.action.selected, 0.35),
               display: visibleNodeIds.indexOf(node.id) !== -1 && 'inline',
             })}
           >
             {node.label}
           </StyledVisibleNode>
-      )}
+        )}
       >
-        {Array.isArray(node.nodes) ? node.nodes.map((n) => renderTree(n)) : null}
+        {node.nodes && node.nodes.length > 0 ? node.nodes.map(renderTree) : null}
       </TreeItem>
     </ScrollToForTreeItem>
   );
 
   return (
-    <TreeView
+    <SimpleTreeView
       sx={{ flexGrow: 1 }}
-      defaultCollapseIcon={<ExpandMoreIcon color="action" />}
-      defaultExpandIcon={<ChevronRightIcon color="action" />}
-      defaultEndIcon={null}
-      onNodeSelect={handleNodeSelect}
-      onNodeToggle={handleNodeToggle}
-      expanded={expandedNodeIds}
+      slots={{
+        collapseIcon: CollapseIcon,
+        endIcon: null,
+        expandIcon: ExpandIcon,
+      }}
+      onSelectedItemsChange={handleNodeSelect}
+      onExpandedItemsChange={handleNodeToggle}
+      expandedItems={expandedNodeIds}
     >
-      { Array.isArray(treeStructure.nodes) ? treeStructure.nodes.map(n => renderTree(n)) : null }
-    </TreeView>
+      {Array.isArray(treeStructure.nodes) && treeStructure.nodes.length > 0
+        ? treeStructure.nodes.map(n => renderTree(n))
+        : <p>No items found</p>}
+    </SimpleTreeView>
   );
 }
 
@@ -174,10 +151,18 @@ SidebarIndexTableOfContents.propTypes = {
   ]).isRequired,
   expandedNodeIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   expandNodes: PropTypes.func.isRequired,
-  nodeIdToScrollTo: PropTypes.func.isRequired,
+  nodeIdToScrollTo: PropTypes.string.isRequired,
   setCanvas: PropTypes.func.isRequired,
   toggleNode: PropTypes.func.isRequired,
-  treeStructure: PropTypes.objectOf().isRequired,
+  treeStructure: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    nodes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      nodes: PropTypes.array, // eslint-disable-line react/forbid-prop-types
+    })),
+  }).isRequired,
   visibleNodeIds: PropTypes.arrayOf(PropTypes.string).isRequired,
   windowId: PropTypes.string.isRequired,
 };

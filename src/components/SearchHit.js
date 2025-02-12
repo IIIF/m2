@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
 import { styled } from '@mui/material/styles';
@@ -122,8 +123,7 @@ export function SearchHit({
         ownerState={ownerState}
         className={windowSelected ? 'windowSelected' : ''}
         divider
-        button={!selected}
-        component="li"
+        component={selected ? 'li' : ListItemButton}
         onClick={handleClick}
         selected={selected}
       >

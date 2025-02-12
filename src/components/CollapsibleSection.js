@@ -21,9 +21,9 @@ export function CollapsibleSection({
   }, [setOpen]);
 
   return (
-    <Accordion id={id} elevation={0} expanded={open} onChange={handleChange} disableGutters square variant="compact">
+    <Accordion slotProps={{ heading: { component: 'h4' } }} id={id} elevation={0} expanded={open} onChange={handleChange} disableGutters square variant="compact">
       <AccordionSummary id={`${id}-header`} aria-controls={`${id}-content`} aria-label={t(open ? 'collapseSection' : 'expandSection', { section: label })} expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="overline" component="h4">
+        <Typography variant="overline">
           {label}
         </Typography>
       </AccordionSummary>

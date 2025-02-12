@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
 import ButtonBase from '@mui/material/ButtonBase';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 import { useTranslation } from 'react-i18next';
@@ -40,21 +40,21 @@ const StyledLogo = styled(Img, { name: 'ManifestListItem', slot: 'logo' })(({ th
 
 /** */
 const Placeholder = () => (
-  <Grid container className={ns('manifest-list-item')} spacing={2}>
-    <Grid item xs={3} sm={2}>
+  <Grid2 container className={ns('manifest-list-item')} spacing={2}>
+    <Grid2 xs={3} sm={2}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={80} width={120} />
-    </Grid>
-    <Grid item xs={9} sm={6}>
+    </Grid2>
+    <Grid2 xs={9} sm={6}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
-    </Grid>
-    <Grid item xs={8} sm={2}>
+    </Grid2>
+    <Grid2 xs={8} sm={2}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
-    </Grid>
-    <Grid item xs={4} sm={2}>
+    </Grid2>
+    <Grid2 xs={4} sm={2}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={60} width={60} />
-    </Grid>
-  </Grid>
+    </Grid2>
+  </Grid2>
 );
 
 /**
@@ -116,15 +116,15 @@ export function ManifestListItem({
       data-active={active}
     >
       {ready ? (
-        <Grid container className={ns('manifest-list-item')} spacing={2}>
-          <Grid item xs={12} sm={6}>
+        <Grid2 container className={ns('manifest-list-item')} spacing={2}>
+          <Grid2 xs={12} sm={6}>
             <ButtonBase
               ref={buttonRef}
               className={ns('manifest-list-item-title')}
               style={{ width: '100%' }}
               onClick={handleOpenButtonClick}
             >
-              <Grid
+              <Grid2
                 container
                 spacing={2}
                 sx={{
@@ -133,7 +133,7 @@ export function ManifestListItem({
                 }}
                 component="span"
               >
-                <Grid item xs={4} sm={3} component="span">
+                <Grid2 xs={4} sm={3} component="span">
                   { thumbnail
                     ? (
                       <StyledThumbnail
@@ -153,8 +153,8 @@ export function ManifestListItem({
                       />
                     )
                     : <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={80} width={120} />}
-                </Grid>
-                <Grid item xs={8} sm={9} component="span">
+                </Grid2>
+                <Grid2 xs={8} sm={9} component="span">
                   { isCollection && (
                     <Typography component="div" variant="overline">
                       { t(isMultipart ? 'multipartCollection' : 'collection') }
@@ -163,16 +163,16 @@ export function ManifestListItem({
                   <Typography component="span" variant="h6">
                     {title || manifestId}
                   </Typography>
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             </ButtonBase>
-          </Grid>
-          <Grid item xs={8} sm={4}>
+          </Grid2>
+          <Grid2 xs={8} sm={4}>
             <Typography className={ns('manifest-list-item-provider')}>{provider}</Typography>
             <Typography>{t('numItems', { count: size, number: size })}</Typography>
-          </Grid>
+          </Grid2>
 
-          <Grid item xs={4} sm={2}>
+          <Grid2 xs={4} sm={2}>
             { manifestLogo
               && (
               <StyledLogo
@@ -190,8 +190,8 @@ export function ManifestListItem({
                 )}
               />
               )}
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
       ) : (
         <Placeholder />
       )}
@@ -203,7 +203,11 @@ ManifestListItem.propTypes = {
   active: PropTypes.bool,
   addWindow: PropTypes.func.isRequired,
   buttonRef: PropTypes.elementType,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+    PropTypes.oneOf([null]), // for null
+  ]),
   fetchManifest: PropTypes.func.isRequired,
   handleClose: PropTypes.func,
   isCollection: PropTypes.bool,

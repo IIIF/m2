@@ -8,23 +8,22 @@ import WorkspaceAdd from '../containers/WorkspaceAdd';
 import BackgroundPluginArea from '../containers/BackgroundPluginArea';
 import ns from '../config/css-ns';
 
-const Root = styled('div', { name: 'WorkspaceArea', slot: 'root' })(({ theme }) => {
-  const getBackgroundColor = theme.palette.mode === 'light' ? darken : lighten;
-
-  return {
-    background: getBackgroundColor(theme.palette.shades.light, 0.1),
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'column',
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    [theme.breakpoints.up('sm')]: {
-      flexDirection: 'row',
-    },
-  };
-});
+const Root = styled('div', { name: 'WorkspaceArea', slot: 'root' })(({ theme }) => ({
+  background: darken(theme.palette.shades.light, 0.1),
+  ...theme.applyStyles('dark', {
+    background: lighten(theme.palette.shades.light, 0.1),
+  }),
+  bottom: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  left: 0,
+  position: 'absolute',
+  right: 0,
+  top: 0,
+  [theme.breakpoints.up('sm')]: {
+    flexDirection: 'row',
+  },
+}));
 
 const ViewerArea = styled('main', { name: 'WorkspaceArea', slot: 'viewer' })(() => ({
   flexGrow: 1,

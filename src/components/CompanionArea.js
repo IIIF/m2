@@ -34,7 +34,8 @@ const Container = styled('div', { name: 'CompanionArea', slot: 'container' })(({
 const StyledToggle = styled('div', { name: 'CompanionArea', slot: 'toggle' })(({ theme }) => ({
   alignItems: 'center',
   backgroundColor: theme.palette.background.paper,
-  border: `1px solid ${theme.palette.mode === 'dark' ? theme.palette.divider : theme.palette.shades?.dark}`,
+  border: `1px solid ${theme.palette.shades?.dark}`,
+  ...theme.applyStyles('dark', { borderColor: theme.palette.divider }),
   borderInlineStart: 0,
   borderRadius: 0,
   display: 'inline-flex',

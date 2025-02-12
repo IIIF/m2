@@ -32,7 +32,6 @@ describe('ManifestListItem', () => {
     expect(screen.getByRole('listitem')).toHaveAttribute('data-active', 'true');
 
     expect(screen.getByRole('listitem')).toHaveClass('active');
-    expect(screen.getByRole('listitem')).toHaveClass('Mui-selected');
   });
   it('renders a placeholder element until real data is available', () => {
     const { container } = createWrapper({ ready: false });

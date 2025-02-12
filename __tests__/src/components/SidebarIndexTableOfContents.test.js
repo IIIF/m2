@@ -119,7 +119,6 @@ describe('SidebarIndexTableOfContents', () => {
   it('toggles branch nodes on click', async () => {
     const user = userEvent.setup();
     const { store } = createInteractiveWrapper({});
-
     expect(screen.getByRole('treeitem')).toBeInTheDocument();
     const root = screen.getByRole('treeitem');
 
@@ -199,7 +198,7 @@ describe('SidebarIndexTableOfContents', () => {
   it('sets the canvas to a start canvas if present (IIIF v2)', async () => {
     const user = userEvent.setup();
     createWrapper({
-      expandNodes: () => { },
+      expandItems: () => { },
       manifest: manifestVersion2,
       setCanvas,
       windowId: 'a',

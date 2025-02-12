@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MenuList from '@mui/material/MenuList';
@@ -87,8 +88,7 @@ export function WindowSideBarCollectionPanel({
         <>
           { parentCollection && (
             <List>
-              <ListItem
-                button
+              <ListItemButton
                 onClick={
                   () => updateCompanionWindow({ collectionPath: collectionPath.slice(0, -1) })
                 }
@@ -99,7 +99,7 @@ export function WindowSideBarCollectionPanel({
                 <ListItemText primaryTypographyProps={{ variant: 'body1' }}>
                   <IIIFResourceLabel resource={parentCollection} />
                 </ListItemText>
-              </ListItem>
+              </ListItemButton>
             </List>
           )}
           <Typography variant="h6">

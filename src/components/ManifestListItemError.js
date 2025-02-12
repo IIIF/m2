@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import ErrorIcon from '@mui/icons-material/ErrorOutlineSharp';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { useTranslation } from 'react-i18next';
 
@@ -14,39 +14,39 @@ export function ManifestListItemError({
 }) {
   const { t } = useTranslation();
   return (
-    <Grid container>
-      <Grid container>
-        <Grid container item xs={12} sm={6}>
-          <Grid item xs={4} sm={3}>
-            <Grid container justifyContent="center">
+    <Grid2 container>
+      <Grid2 container>
+        <Grid2 container xs={12} sm={6}>
+          <Grid2 xs={4} sm={3}>
+            <Grid2 container justifyContent="center">
               <ErrorIcon sx={{
                 color: 'error.main',
                 height: '2rem',
                 width: '2rem',
               }}
               />
-            </Grid>
-          </Grid>
-          <Grid item xs={8} sm={9}>
+            </Grid2>
+          </Grid2>
+          <Grid2 xs={8} sm={9}>
             <Typography>{t('manifestError')}</Typography>
             <Typography sx={{ wordBreak: 'break-all' }}>{manifestId}</Typography>
-          </Grid>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
 
-      <Grid container>
-        <Grid container item xs={12} sm={6} justifyContent="flex-end">
-          <Grid item>
+      <Grid2 container>
+        <Grid2 container xs={12} sm={6} justifyContent="flex-end">
+          <Grid2>
             <Button onClick={() => { onDismissClick(manifestId); }}>
               {t('dismiss')}
             </Button>
             <Button onClick={() => { onTryAgainClick(manifestId); }}>
               {t('tryAgain')}
             </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+          </Grid2>
+        </Grid2>
+      </Grid2>
+    </Grid2>
   );
 }
 
