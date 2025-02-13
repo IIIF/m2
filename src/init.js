@@ -3,7 +3,7 @@ import MiradorViewer from './lib/MiradorViewer';
 /**
  * Default Mirador instantiation
  */
-function viewer(config, pluginsOrStruct) {
+export function viewer(config, pluginsOrStruct) {
   let struct;
 
   if (Array.isArray(pluginsOrStruct)) {

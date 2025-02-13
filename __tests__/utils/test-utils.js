@@ -10,7 +10,7 @@ import settings from '../../src/config/settings';
 import createI18nInstance from '../../src/i18n';
 
 /** Mirador viewer setup for Integration tests */
-import Mirador from '../../src/index';
+import { viewer as miradorViewer } from '../../src/index';
 
 export * from '@testing-library/react';
 export { renderWithProviders as render };
@@ -61,7 +61,7 @@ function renderWithProviders(
 
 /** adds a mirador viewer to the DOM */
 const setupMiradorViewer = async (config, plugins) => {
-  const viewer = Mirador.viewer({ ...config, id: undefined }, plugins);
+  const viewer = miradorViewer({ ...config, id: undefined }, plugins);
 
   render(
     <div
