@@ -105,13 +105,24 @@ function* fetchIiifResourceWithAuth(url, iiifResource, options, { degraded, fail
   yield put((degraded || success)({ json, response, tokenServiceId }));
 }
 
+// Prefer v3 API response, but v2 is acceptable or even any JSON+LD or JSON.
+const MANIFEST_ACCEPT_HEADER = 'application/ld+json;q=0.9;profile="http://iiif.io/api/presentation/3/context.json", '
+                               + 'application/ld+json;q=0.7;profile="http://iiif.io/api/presentation/2/context.json", '
+                               + 'application/ls+json;q=0.5, '
+                               + 'application/json;q=0.2';
+
 /** */
 export function* fetchManifest({ manifestId }) {
   const callbacks = {
     failure: ({ error, json, response }) => receiveManifestFailure(manifestId, typeof error === 'object' ? String(error) : error),
     success: ({ json, response }) => receiveManifest(manifestId, json),
   };
-  const dispatch = yield call(fetchIiifResource, manifestId, {}, callbacks);
+  const dispatch = yield call(
+    fetchIiifResource,
+    manifestId,
+    { headers: { Accept: MANIFEST_ACCEPT_HEADER } },
+    callbacks,
+  );
   yield put(dispatch);
 }
 
