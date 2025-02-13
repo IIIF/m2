@@ -42,17 +42,15 @@ export default defineConfig({
         rollupOptions: {
           external: [
             ...Object.keys(packageJson.peerDependencies),
-            'react/jsx-runtime',
             '__tests__/*',
-            '__mocks__/*',
+            '__mocks__/*'
           ],
           output: {
             assetFileNames: 'mirador.[ext]',
             exports: 'named',
             globals: {
               react: 'React',
-              'react-dom': 'ReactDOM',
-              'react/jsx-runtime': 'react/jsx-runtime',
+              'react-dom': 'ReactDOM'
             },
           },
         },
@@ -88,6 +86,9 @@ export default defineConfig({
     alias: {
       '@tests/': fileURLToPath(new URL('./__tests__', import.meta.url)),
     },
+  },
+  define: {
+    'process.env': {},
   },
   server: {
     open: '/__tests__/integration/mirador/index.html',
