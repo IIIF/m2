@@ -67,6 +67,7 @@ export function WorkspaceMenu({
         </MenuItem>
         <MenuItem
           aria-haspopup="true"
+          aria-expanded={selectedOption === 'workspaceSelection'}
           onClick={(e) => { handleClick('workspaceSelection', e); }}
           aria-owns={selectedOption === 'workspaceSelection' ? 'workspace-selection' : undefined}
         >

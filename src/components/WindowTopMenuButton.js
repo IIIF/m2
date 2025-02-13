@@ -31,6 +31,7 @@ export function WindowTopMenuButton({ classes = {}, windowId }) {
         aria-haspopup="true"
         aria-label={t('windowMenu')}
         aria-owns={open ? menuId : undefined}
+        aria-selected={open}
         className={open ? classes.ctrlBtnSelected : undefined}
         selected={open}
         onClick={handleMenuClick}
