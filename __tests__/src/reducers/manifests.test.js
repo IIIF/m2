@@ -94,4 +94,10 @@ describe('manifests reducer', () => {
       type: ActionTypes.IMPORT_MIRADOR_STATE,
     })).toEqual({ new: 'stuff' });
   });
+  it('should handle IMPORT_CONFIG setting to load manifests', () => {
+    expect(manifestsReducer({}, {
+      config: { manifests: { new: 'stuff' } },
+      type: ActionTypes.IMPORT_CONFIG,
+    })).toEqual({ new: 'stuff' });
+  });
 });

@@ -39,8 +39,10 @@ export function* fetchWindowManifest(action) {
 
   if (!manifestId) return;
 
-  if (action.manifest) {
-    yield put(receiveManifest(manifestId, action.manifest));
+  const sideloadedManifest = action.manifest || (action.payload || {}).manifest;
+
+  if (sideloadedManifest) {
+    yield put(receiveManifest(manifestId, sideloadedManifest));
   } else {
     yield call(fetchManifests, manifestId, ...(collectionPath || []));
   }
