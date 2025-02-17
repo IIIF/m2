@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { miradorSlice } from './utils';
+import { miradorSlice, EMPTY_ARRAY, EMPTY_OBJECT } from './utils';
 
 /**
  * Returns the manifest titles for all open windows.
@@ -16,7 +16,7 @@ export function getWindowManifests(state) {
  * @returns {object} {id: {canvasId: {...}, ...}, ...}
  */
 export function getWindows(state) {
-  return miradorSlice(state).windows || {};
+  return miradorSlice(state).windows || EMPTY_OBJECT;
 }
 
 /**
@@ -61,7 +61,7 @@ export function getWorkspace(state) {
  */
 export const getWindowIds = createSelector(
   [getWorkspace],
-  ({ windowIds }) => windowIds || [],
+  ({ windowIds }) => windowIds || EMPTY_ARRAY,
 );
 
 /**
@@ -70,7 +70,7 @@ export const getWindowIds = createSelector(
  * @returns {object}
  */
 export function getManifests(state) {
-  return miradorSlice(state).manifests || {};
+  return miradorSlice(state).manifests || EMPTY_OBJECT;
 }
 
 /**
@@ -85,7 +85,7 @@ export function getManifest(state, { manifestId, windowId }) {
   const manifests = getManifests(state);
   return manifests && manifests[
     manifestId
-    || (windowId && (getWindow(state, { windowId }) || {}).manifestId)
+    || (windowId && (getWindow(state, { windowId }) || EMPTY_OBJECT).manifestId)
   ];
 }
 
@@ -95,5 +95,5 @@ export function getManifest(state, { manifestId, windowId }) {
  * @returns {object} containing manifestIds for the manifests in the catalog
  */
 export function getCatalog(state) {
-  return miradorSlice(state).catalog || {};
+  return miradorSlice(state).catalog || EMPTY_OBJECT;
 }

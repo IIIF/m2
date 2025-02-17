@@ -1,9 +1,7 @@
 import { createSelector } from 'reselect';
 import deepmerge from 'deepmerge';
-import { miradorSlice } from './utils';
+import { miradorSlice, EMPTY_ARRAY, EMPTY_OBJECT } from './utils';
 import { getWorkspace } from './getters';
-
-const defaultConfig = Object.freeze({});
 
 /**
  * Returns the config from the redux state.
@@ -12,7 +10,7 @@ const defaultConfig = Object.freeze({});
  */
 export function getConfig(state) {
   const slice = miradorSlice(state || {});
-  return slice.config || defaultConfig;
+  return slice.config || EMPTY_OBJECT;
 }
 
 /**
@@ -111,11 +109,20 @@ export const getThemeDirection = createSelector(
   ({ theme }) => theme.direction || 'ltr',
 );
 /**
- * Returns the theme direction from the config.
+ * Returns the requests configurations from the config.
  * @param {object} state
  * @returns {object} {preprocessor: [...], postprocessor: [...]}
  */
 export const getRequestsConfig = createSelector(
   [getConfig],
-  ({ requests }) => requests || {},
+  ({ requests }) => requests || EMPTY_OBJECT,
+);
+/**
+ * Returns the thumbnails configurations from the config.
+ * @param {object} state
+ * @returns {object} {preprocessor: [...], postprocessor: [...]}
+ */
+export const getThumbnailsConfig = createSelector(
+  [getConfig],
+  ({ thumbnails }) => thumbnails || EMPTY_OBJECT,
 );

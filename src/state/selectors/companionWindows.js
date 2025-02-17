@@ -1,9 +1,7 @@
 import { createSelector } from 'reselect';
 import groupBy from 'lodash/groupBy';
-import { miradorSlice } from './utils';
+import { miradorSlice, EMPTY_ARRAY, EMPTY_OBJECT } from './utils';
 import { getWindow, getWindows } from './getters';
-
-const defaultConfig = Object.freeze({});
 
 /**
  * Returns companion windows.
@@ -11,7 +9,7 @@ const defaultConfig = Object.freeze({});
  * @returns {object}
  */
 export function getCompanionWindows(state) {
-  return miradorSlice(state).companionWindows || defaultConfig;
+  return miradorSlice(state).companionWindows || EMPTY_OBJECT;
 }
 
 /**
@@ -103,7 +101,7 @@ const getCompanionWindowsByWindowAndPosition = createSelector(
  */
 const getCompanionWindowsOfWindow = createSelector(
   [(state, { windowId }) => windowId, getCompanionWindowsByWindowAndPosition],
-  (windowId, companionWindows) => companionWindows[windowId] || {},
+  (windowId, companionWindows) => companionWindows[windowId] || EMPTY_OBJECT,
 );
 
 /**
@@ -114,7 +112,7 @@ const getCompanionWindowsOfWindow = createSelector(
  */
 const getCompanionWindowIdsOfWindow = createSelector(
   [(state, { windowId }) => windowId, getCompanionWindowIndexByWindowAndPosition],
-  (windowId, companionWindowIds) => companionWindowIds[windowId] || {},
+  (windowId, companionWindowIds) => companionWindowIds[windowId] || EMPTY_OBJECT,
 );
 
 /**
@@ -148,8 +146,6 @@ export const getCompanionWindowsForContent = createSelector(
     [].concat(...Object.values(companionWindows)).filter(w => w.content === content)
   ),
 );
-
-const EMPTY_ARRAY = [];
 
 /**
  * Returns companion window ids for position.

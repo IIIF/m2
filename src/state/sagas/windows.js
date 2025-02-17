@@ -28,6 +28,8 @@ import {
   getCanvases,
   selectInfoResponses,
   getWindowConfig,
+  getMiradorCanvasWrapper,
+  getMiradorManifestWrapper,
 } from '../selectors';
 import { fetchManifests } from './iiif';
 
@@ -97,10 +99,11 @@ export function* setWindowStartingCanvas(action) {
     const thunk = yield call(setCanvas, windowId, canvasId, null, { preserveViewport: !!action.payload });
     yield put(thunk);
   } else {
+    const getMiradorManifest = yield select(getMiradorManifestWrapper);
     const manifestoInstance = yield select(getManifestoInstance, { manifestId });
     if (manifestoInstance) {
       // set the startCanvas
-      const miradorManifest = new MiradorManifest(manifestoInstance);
+      const miradorManifest = getMiradorManifest(manifestoInstance);
       const startCanvas = miradorManifest.startCanvas
         || miradorManifest.canvasAt(canvasIndex || 0)
         || miradorManifest.canvasAt(0);
@@ -240,9 +243,10 @@ export function* fetchInfoResponses({ visibleCanvases: visibleCanvasIds, windowI
   const canvases = yield select(getCanvases, { windowId });
   const infoResponses = yield select(selectInfoResponses);
   const visibleCanvases = (canvases || []).filter(c => visibleCanvasIds.includes(c.id));
+  const getMiradorCanvas = yield select(getMiradorCanvasWrapper);
 
   yield all(visibleCanvases.map((canvas) => {
-    const miradorCanvas = new MiradorCanvas(canvas);
+    const miradorCanvas = getMiradorCanvas(canvas);
     return all(miradorCanvas.iiifImageResources.map(imageResource => (
       !infoResponses[imageResource.getServices()[0].id]
         && put(fetchInfoResponse({ imageResource, windowId }))

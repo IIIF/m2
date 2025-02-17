@@ -2,8 +2,8 @@ import { render, screen } from '@tests/utils/test-utils';
 import PropTypes from 'prop-types';
 import userEvent from '@testing-library/user-event';
 import { Utils } from 'manifesto.js';
+import { getCanvasWorld } from '../../utils/mirador-wrappers';
 import { OpenSeadragonViewer } from '../../../src/components/OpenSeadragonViewer';
-import CanvasWorld from '../../../src/lib/CanvasWorld';
 import fixture from '../../fixtures/version-2/019.json';
 import { OSDReferences } from '../../../src/plugins/OSDReferences';
 
@@ -26,7 +26,7 @@ function createWrapper(props) {
       windowId="base"
       config={{}}
       updateViewport={vi.fn()}
-      canvasWorld={new CanvasWorld(canvases)}
+      canvasWorld={getCanvasWorld(canvases)}
       {...props}
     >
       <Child testId="foo" />

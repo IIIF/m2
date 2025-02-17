@@ -5,7 +5,7 @@ import AnnotationList from '../../lib/AnnotationList';
 import { getCanvas, getCanvases } from './canvases';
 import { getWindow } from './getters';
 import { getManifestLocale } from './manifests';
-import { miradorSlice } from './utils';
+import { miradorSlice, EMPTY_ARRAY, EMPTY_OBJECT } from './utils';
 
 /**
  *  Get searches from state.
@@ -24,7 +24,7 @@ export const getSearchForWindow = createSelector(
     getSearches,
   ],
   (windowId, searches) => {
-    if (!windowId || !searches) return {};
+    if (!windowId || !searches) return EMPTY_OBJECT;
 
     return searches[windowId];
   },
@@ -57,7 +57,7 @@ const getSearchResponsesForCompanionWindow = createSelector(
     getSearchForCompanionWindow,
   ],
   (results) => {
-    if (!results) return [];
+    if (!results) return EMPTY_ARRAY;
     return Object.values(results.data);
   },
 );
@@ -140,7 +140,7 @@ const getSearchHitsForCompanionWindow = createSelector(
     getSearchResponsesForCompanionWindow,
   ],
   results => flatten(results.map((result) => {
-    if (!result || !result.json || result.isFetching || !result.json.hits) return [];
+    if (!result || !result.json || result.isFetching || !result.json.hits) return EMPTY_ARRAY;
 
     return result.json.hits;
   })),
@@ -166,8 +166,8 @@ export const getSortedSearchHitsForCompanionWindow = createSelector(
     getSearchAnnotationsForCompanionWindow,
   ],
   (searchHits, canvases, annotation) => {
-    if (!canvases || canvases.length === 0) return [];
-    if (!searchHits || searchHits.length === 0) return [];
+    if (!canvases || canvases.length === 0) return EMPTY_ARRAY;
+    if (!searchHits || searchHits.length === 0) return EMPTY_ARRAY;
     const canvasIds = canvases.map(canvas => canvas.id);
 
     return [].concat(searchHits).sort((a, b) => {
@@ -206,8 +206,8 @@ const searchResultsToAnnotation = (results) => {
 export function sortSearchAnnotationsByCanvasOrder(searchAnnotations, canvases) {
   if (!searchAnnotations
       || !searchAnnotations.resources
-      || searchAnnotations.length === 0) return [];
-  if (!canvases || canvases.length === 0) return [];
+      || searchAnnotations.length === 0) return EMPTY_ARRAY;
+  if (!canvases || canvases.length === 0) return EMPTY_ARRAY;
   const canvasIds = canvases.map(canvas => canvas.id);
 
   return [].concat(searchAnnotations.resources).sort(
@@ -240,7 +240,7 @@ export const getSearchAnnotationsForWindow = createSelector(
     getSearchForWindow,
   ],
   (results) => {
-    if (!results) return [];
+    if (!results) return EMPTY_ARRAY;
     const data = Object.values(results).map(r => Object.values(r.data));
 
     return data.map(d => searchResultsToAnnotation(d)).filter(a => a.resources.length > 0);
@@ -292,7 +292,7 @@ export const getResourceAnnotationLabel = createSelector(
   (resourceAnnotation, locale) => {
     if (
       !(resourceAnnotation && resourceAnnotation.resource && resourceAnnotation.resource.label)
-    ) return [];
+    ) return EMPTY_ARRAY;
 
     return PropertyValue.parse(resourceAnnotation.resource.label).getValues(locale);
   },
