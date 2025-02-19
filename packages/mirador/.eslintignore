@@ -1,0 +1,6 @@
+dist/
+config/
+coverage/
+styles/
+packages/mirador/dist/
+packages/mirador/node_modules/

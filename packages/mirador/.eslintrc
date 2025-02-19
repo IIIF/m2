@@ -1,0 +1,100 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:testing-library/react"
+  ],
+  "globals": {
+    "page": true,
+    "document": true,
+    "vi": true
+  },
+  "plugins": [
+    "react", 
+    "react-hooks",
+    "testing-library"
+  ],
+  "rules": {
+    "import/no-unresolved": [
+      2, { "ignore": ["test-utils"] }
+    ],
+    "import/prefer-default-export": "off",
+    "no-console": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "no-restricted-syntax": ["warn", "WithStatement"],
+    "no-restricted-globals": ["error"],
+    "eqeqeq": ["warn", "smart"],
+    "no-use-before-define": [
+      "warn",
+      {
+        "functions": false,
+        "classes": false,
+        "variables": false
+      },
+    ],
+    "no-mixed-operators": [
+      "warn",
+      {
+        "groups": [
+          ["&", "|", "^", "~", "<<", ">>", ">>>"],
+          ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+          ["&&", "||"],
+          ["in", "instanceof"],
+        ],
+        "allowSamePrecedence": false,
+      },
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "require-jsdoc": ["error", {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true,
+        "ArrowFunctionExpression": true,
+        "FunctionExpression": true
+      }
+    }],
+    "no-underscore-dangle": "off",
+    "react/prefer-stateless-function": "off",
+    "sort-keys": ["error", "asc", {
+      "caseSensitive": false,
+      "natural": false
+    }],
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": "off",
+    "default-param-last": "off",
+    "arrow-parens": "off",
+    "import/no-anonymous-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "max-len": ["error", {
+      "code": 120,
+      "ignoreComments": true,
+      "ignoreStrings": true,
+      "ignoreTemplateLiterals": true,
+      "ignoreRegExpLiterals": true
+    }],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": [2, {
+      "functions": "defaultArguments"
+    }],
+    "react-hooks/exhaustive-deps": "error",
+    "testing-library/render-result-naming-convention": "off",
+    "testing-library/no-render-in-lifecycle": [
+      "error",
+      {
+        "allowTestingFrameworkSetupHook": "beforeEach"
+      }
+    ]
+  }
+}

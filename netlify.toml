@@ -2,7 +2,7 @@
 # See https://www.netlify.com/docs/netlify-toml-reference/ for more
 
 [build]
-  publish = "dist/"
+  publish = "packages/mirador/dist/"
 
 [[redirects]]
   from = "/"
