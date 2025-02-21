@@ -1,4 +1,5 @@
 import omit from 'lodash/omit';
+import deepmerge from 'deepmerge';
 import ActionTypes from '../actions/action-types';
 
 /**
@@ -36,6 +37,9 @@ export const manifestsReducer = (state = {}, action) => {
           isFetching: false,
         },
       };
+    case ActionTypes.UPDATE_CONFIG:
+    case ActionTypes.IMPORT_CONFIG:
+      return deepmerge(state, action.config.manifests || {});
     case ActionTypes.REMOVE_MANIFEST:
       return Object.keys(state).reduce((object, key) => {
         if (key !== action.manifestId) {
