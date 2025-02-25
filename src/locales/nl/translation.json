@@ -55,7 +55,7 @@
     "iiif_seeAlso": "Zie ook",
     "import": "Importeer",
     "importWorkspace": "Importeer workspace",
-    "importWorkspaceHint": "Plak een Mirador 3 configuratie die geïmporteerd moet worden",
+    "importWorkspaceHint": "Plak een Mirador 4 configuratie die geïmporteerd moet worden",
     "item": "Item: {{label}}",
     "itemList": "Compacte lijst",
     "language": "Taal",

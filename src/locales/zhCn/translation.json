@@ -62,7 +62,7 @@
     "iiif_seeAlso": "另见",
     "import": "导入",
     "importWorkspace": "导入桌面排版",
-    "importWorkspaceHint": "在此贴上Mirador 3排版设定码",
+    "importWorkspaceHint": "在此贴上Mirador 4排版设定码",
     "item": "条目: {{label}}",
     "itemList": "标题列表",
     "jsError": "技术细节",

@@ -63,7 +63,7 @@
     "iiif_seeAlso": "See also",
     "import": "Import",
     "importWorkspace": "Import workspace",
-    "importWorkspaceHint": "Paste a Mirador 3 configuration to be imported",
+    "importWorkspaceHint": "Paste a Mirador 4 configuration to be imported",
     "item": "Item: {{label}}",
     "itemList": "Item list",
     "jsError": "Technical details",

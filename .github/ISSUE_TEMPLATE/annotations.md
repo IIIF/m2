@@ -1,8 +1,8 @@
 ---
 name: Annotations
-about: Issues related to annotation viewing / rendering in Mirador 3. Issues related to annotation creation can be filed in ProjectMirador/mirador-annotations.
+about: Issues related to annotation viewing / rendering in Mirador. Issues related to annotation creation can be filed in ProjectMirador/mirador-annotations.
 title: ''
-labels: Mirador3, annotations
+labels: Mirador3, Mirador4, annotations
 assignees: ''
 
 ---

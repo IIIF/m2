@@ -62,7 +62,7 @@
     "iiif_seeAlso": "Vedi anche",
     "import": "Importa",
     "importWorkspace": "Importa workspace",
-    "importWorkspaceHint": "Incolla una configurazione di Mirador 3 da importare",
+    "importWorkspaceHint": "Incolla una configurazione di Mirador 4 da importare",
     "item": "Oggetto: {{label}}",
     "itemList": "Lista compatta",
     "jsError": "Dettagli tecnici",

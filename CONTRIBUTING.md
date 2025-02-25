@@ -13,7 +13,7 @@ All contributions should be submitted as a [GitHub pull request](https://help.gi
 Everyone interacting in this community is expected to follow the [Mirador Code of Conduct](https://github.com/ProjectMirador/mirador/blob/main/CODE_OF_CONDUCT.md).
 
 ### Accessibility
-Mirador 3 aims to comply with the [Web Content Accessibility Guidelines (WCAG) 2.1 AA](https://www.w3.org/WAI/standards-guidelines/wcag/). These guidelines, authored by the W3C and legally adopted [internationally](https://www.w3.org/WAI/policies/?q=wcag-20), are comprehensive and provide the success criteria designers and developers need to build accessible web applications.
+Mirador aims to comply with the [Web Content Accessibility Guidelines (WCAG) 2.1 AA](https://www.w3.org/WAI/standards-guidelines/wcag/). These guidelines, authored by the W3C and legally adopted [internationally](https://www.w3.org/WAI/policies/?q=wcag-20), are comprehensive and provide the success criteria designers and developers need to build accessible web applications.
 
 Mirador’s documentation wiki offers [additional information, tools, and resources](https://github.com/ProjectMirador/mirador/wiki/M3-Accessibility-Guidelines-for-Contributors) for testing your contributions against accessibility criteria before submitting pull requests.
 
@@ -38,10 +38,10 @@ Mirador should be well-tested at several different levels. A component or class 
 Added or modified code should be appropriately documented using JSDoc comments and established project conventions.
 
 ### Plugin architecture
-Mirador 3 shifted to a plugin architecture to better support the wide array of uses of Mirador. This allows for the design to accommodate plugins in a more focused way. It also allows the community to maintain the core components while giving developers the freedom to develop new and innovative plugins. Your contribution might fit nicely as a Mirador plugin. For more on plugins, please see [Mirador 3 Plugins](https://github.com/ProjectMirador/mirador/wiki/Mirador-3-plugins) and [Creating a Mirador 3 Plugin](https://github.com/ProjectMirador/mirador/wiki/M3---Creating-a-Mirador-plugin) in the wiki.
+Mirador 3 shifted to a plugin architecture to better support the wide array of uses of Mirador. This allows for the design to accommodate plugins in a more focused way. It also allows the community to maintain the core components while giving developers the freedom to develop new and innovative plugins. Your contribution might fit nicely as a Mirador plugin. For more on plugins, please see [Mirador 4 Plugins](https://github.com/ProjectMirador/mirador/wiki/Creating-a-Mirador-4-Plugin) and [Mirador 3 Plugins](https://github.com/ProjectMirador/mirador/wiki/Mirador-3-plugins) in the wiki.
 
 ### Support
 If you have questions, please check the [wiki](https://github.com/ProjectMirador/mirador/wiki), add a [discussion](https://github.com/ProjectMirador/mirador/discussions) question, post on the #mirador channel of the [IIIF Slack workspace](http://iiif.slack.com/), or join a Mirador community call (see #mirador for call details). Slack and community calls are also both great places to meet users and maintainers.
 
 ### Plugin architecture
-Mirador 3 shifted to a plugin architecture to better support the wide array of uses of Mirador. This allows for the design to accommodate plugins in more focused way. It also allows the community to maintain the core components while giving developers the freedom to develop new and innovative plugins. Your contribution might fit nicely as a Mirador plugin.
+Mirador 3 shifted to a plugin architecture to better support the wide array of uses of Mirador. This remains the architecture in Mirador 4. This allows for the design to accommodate plugins in more focused way. It also allows the community to maintain the core components while giving developers the freedom to develop new and innovative plugins. Your contribution might fit nicely as a Mirador plugin.

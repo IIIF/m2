@@ -62,7 +62,7 @@
     "iiif_seeAlso": "참고",
     "import": "가져오기",
     "importWorkspace": "작업공간 가져오기",
-    "importWorkspaceHint": "Mirador 3 환경설정 가져와 붙여넣기",
+    "importWorkspaceHint": "Mirador 4 환경설정 가져와 붙여넣기",
     "item": "아이템: {{label}}",
     "itemList": "아이템 목록",
     "jsError": "기술적인 세부사항",
