@@ -76,7 +76,7 @@ export function WorkspaceOptionsMenu({
           </ListItemIcon>
           <Typography variant="body1">{t('importWorkspace')}</Typography>
         </MenuItem>
-        <PluginHook {...pluginProps} />
+        <PluginHook targetName="WorkspaceOptionsMenu" {...pluginProps} />
       </Menu>
       {selectedOption === 'exportWorkspace' && (
         <WorkspaceExport

@@ -1,5 +1,8 @@
 import { render, screen } from '@tests/utils/test-utils';
 import { WindowTopBarPluginArea } from '../../../src/components/WindowTopBarPluginArea';
+import { usePlugins } from '../../../src/extend/usePlugins';
+
+vi.mock('../../../src/extend/usePlugins');
 
 /** */
 const mockComponent = () => (
@@ -8,7 +11,8 @@ const mockComponent = () => (
 
 describe('WindowTopBarPluginArea', () => {
   it('renders the component', () => {
-    render(<WindowTopBarPluginArea PluginComponents={[mockComponent]} />);
+    vi.mocked(usePlugins).mockReturnValue({ PluginComponents: [mockComponent] });
+    render(<WindowTopBarPluginArea />);
     expect(screen.getByTestId('test')).toBeInTheDocument();
   });
 });

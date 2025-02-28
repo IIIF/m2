@@ -6,12 +6,13 @@ import { useTranslation } from 'react-i18next';
 import MiradorMenuButton from '../containers/MiradorMenuButton';
 import { PluginHook } from './PluginHook';
 import WorkspaceContext from '../contexts/WorkspaceContext';
+import { usePlugins } from '../extend/usePlugins';
 
 /**
  *
  */
 export function WindowTopBarPluginMenu({
-  PluginComponents = [], windowId, menuIcon = <MoreVertIcon />,
+  windowId, menuIcon = <MoreVertIcon />,
 }) {
   const { t } = useTranslation();
   const container = useContext(WorkspaceContext);
@@ -19,6 +20,7 @@ export function WindowTopBarPluginMenu({
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const windowPluginMenuId = useId();
+  const { PluginComponents } = usePlugins('WindowTopBarPluginMenu');
 
   /** */
   const handleMenuClick = (event) => {
@@ -61,7 +63,7 @@ export function WindowTopBarPluginMenu({
         open={open}
         onClose={handleMenuClose}
       >
-        <PluginHook handleClose={handleMenuClose} {...pluginProps} />
+        <PluginHook targetName="WindowTopBarPluginMenu" handleClose={handleMenuClose} {...pluginProps} />
       </Menu>
     </>
   );

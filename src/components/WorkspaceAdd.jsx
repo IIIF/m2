@@ -129,7 +129,7 @@ export function WorkspaceAdd({
         ) : (
           <Paper sx={{ margin: 2 }}>
             <Typography style={visuallyHidden} component="h1">{t('miradorResources')}</Typography>
-            <PluginHook {...pluginProps} />
+            <PluginHook targetName="WorkspaceAdd" {...pluginProps} />
             <List disablePadding>
               {manifestList}
             </List>

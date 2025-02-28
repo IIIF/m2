@@ -5,17 +5,11 @@ import { PluginHook } from '../../../src/components/PluginHook';
 import PluginContext from '../../../src/extend/PluginContext';
 
 /** Mock target component */
-const Target = ({ PluginComponents, TargetComponent, ...props }) => (
+const Target = ({ ...props }) => (
   <div data-testid="target" {...props}>
     Hello
-    <PluginHook PluginComponents={PluginComponents} {...props} />
   </div>
 );
-
-Target.propTypes = {
-  PluginComponents: PropTypes.arrayOf(PropTypes.element).isRequired,
-  TargetComponent: PropTypes.elementType.isRequired,
-};
 
 /** create wrapper  */
 function createPluginHoc(pluginMap) {
@@ -84,87 +78,5 @@ describe('PluginHoc: if wrap plugins exist for target', () => {
 
     expect(screen.getByTestId('pluginA')).toBeInTheDocument();
     expect(within(screen.getByTestId('pluginA')).getByTestId('pluginB')).toBeInTheDocument();
-  });
-});
-
-describe('PluginHoc: if add plugins exist but no wrap plugin', () => {
-  it('renders the target component and passes all add plugin components as a prop', () => {
-    /** */ const AddPluginComponentA = props => <div data-testid="a">look i am a plugin</div>;
-    /** */ const AddPluginComponentB = props => <div data-testid="b">look i am a plugin</div>;
-    const plugins = {
-      Target: {
-        add: [
-          { component: AddPluginComponentA, mode: 'add', target: 'Target' },
-          { component: AddPluginComponentB, mode: 'add', target: 'Target' },
-        ],
-      },
-    };
-
-    createPluginHoc(plugins);
-
-    expect(screen.getByTestId('target')).toBeInTheDocument();
-    expect(within(screen.getByTestId('target')).getByTestId('a')).toBeInTheDocument();
-    expect(within(screen.getByTestId('target')).getByTestId('b')).toBeInTheDocument();
-  });
-});
-
-describe('PluginHoc: if wrap plugins AND add plugins exist for target', () => {
-  it('renders the first wrap plugin, ignores add plugins if props are not passed through', () => {
-    /** */ const WrapPluginComponentA = props => <div data-testid="a">look i am a plugin</div>;
-    /** */ const WrapPluginComponentB = props => <div>look i am a plugin</div>;
-    /** */ const AddPluginComponentA = props => <div>look i am a plugin</div>;
-    /** */ const AddPluginComponentB = props => <div>look i am a plugin</div>;
-    const plugins = {
-      Target: {
-        add: [
-          { component: AddPluginComponentA, mode: 'add', target: 'Target' },
-          { component: AddPluginComponentB, mode: 'add', target: 'Target' },
-        ],
-        wrap: [
-          { component: WrapPluginComponentA, mode: 'wrap', target: 'Target' },
-          { component: WrapPluginComponentB, mode: 'wrap', target: 'Target' },
-        ],
-      },
-    };
-
-    createPluginHoc(plugins);
-
-    expect(screen.getByTestId('a')).toBeInTheDocument();
-    expect(screen.queryByTestId('target')).not.toBeInTheDocument();
-  });
-  it('renders the first wrap plugin, renders add plugins if plugin/props are passed through', () => {
-    /** */ const WrapPluginComponentA = ({ targetProps, ...plugin }) => (
-      // eslint-disable-next-line react/destructuring-assignment
-      <div data-testid="a">
-        <plugin.TargetComponent {...targetProps} {...plugin} />
-      </div>
-    );
-
-    WrapPluginComponentA.propTypes = {
-      targetProps: PropTypes.shape({}).isRequired,
-    };
-
-    /** */ const WrapPluginComponentB = props => <div>look i am a plugin</div>;
-    /** */ const AddPluginComponentC = props => <div data-testid="c">look i am a plugin</div>;
-    /** */ const AddPluginComponentD = props => <div data-testid="d">look i am a plugin</div>;
-    const plugins = {
-      Target: {
-        add: [
-          { component: AddPluginComponentC, mode: 'add', target: 'Target' },
-          { component: AddPluginComponentD, mode: 'add', target: 'Target' },
-        ],
-        wrap: [
-          { component: WrapPluginComponentA, mode: 'wrap', target: 'Target' },
-          { component: WrapPluginComponentB, mode: 'wrap', target: 'Target' },
-        ],
-      },
-    };
-
-    createPluginHoc(plugins);
-
-    expect(screen.getByTestId('a')).toBeInTheDocument();
-    expect(within(screen.getByTestId('a')).getByTestId('target')).toBeInTheDocument();
-    expect(within(screen.getByTestId('target')).getByTestId('c')).toBeInTheDocument();
-    expect(within(screen.getByTestId('target')).getByTestId('d')).toBeInTheDocument();
   });
 });

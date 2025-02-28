@@ -2,21 +2,28 @@ import { useContext } from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import Popover from '@mui/material/Popover';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import WindowThumbnailSettings from '../containers/WindowThumbnailSettings';
 import WindowViewSettings from '../containers/WindowViewSettings';
 import { PluginHook } from './PluginHook';
 import WorkspaceContext from '../contexts/WorkspaceContext';
+import { usePlugins } from '../extend/usePlugins';
 
 /** Renders plugins */
-function PluginHookWithHeader(props) {
-  const { PluginComponents, t } = props; // eslint-disable-line react/prop-types
-  return PluginComponents ? (
+function PluginHookWithHeader({ targetName, ...props }) {
+  const PluginComponents = usePlugins(targetName);
+  const { t } = useTranslation();
+  return PluginComponents?.length > 0 ? (
     <>
       <ListSubheader role="presentation" disableSticky tabIndex={-1}>{t('windowPluginButtons')}</ListSubheader>
-      <PluginHook {...props} />
+      <PluginHook targetName={targetName} {...props} />
     </>
   ) : null;
 }
+
+PluginHookWithHeader.propTypes = {
+  targetName: PropTypes.string.isRequired,
+};
 
 /**
  */
@@ -51,7 +58,7 @@ export function WindowTopMenu({
       <WindowViewSettings windowId={windowId} handleClose={handleClose} />
       {showThumbnailNavigationSettings
         && <WindowThumbnailSettings windowId={windowId} handleClose={handleClose} />}
-      <PluginHookWithHeader {...pluginProps} />
+      <PluginHookWithHeader targetName="WindowTopMenu" {...pluginProps} />
     </Popover>
   );
 }

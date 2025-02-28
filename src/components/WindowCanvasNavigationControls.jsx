@@ -70,7 +70,7 @@ export const WindowCanvasNavigationControls = forwardRef(({
       </Stack>
       <ViewerInfo windowId={windowId} />
 
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="WindowCanvasNavigationControls" {...pluginProps} />
     </Root>
   );
 });

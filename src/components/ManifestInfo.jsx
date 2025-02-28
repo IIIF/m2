@@ -52,7 +52,7 @@ export function ManifestInfo({
         <LabelValueMetadata labelValuePairs={manifestMetadata} />
       )}
 
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="ManifestInfo" {...pluginProps} />
     </CollapsibleSection>
   );
 }

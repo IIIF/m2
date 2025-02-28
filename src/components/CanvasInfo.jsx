@@ -49,7 +49,7 @@ export function CanvasInfo({
       {canvasMetadata && canvasMetadata.length > 0 && (
         <LabelValueMetadata labelValuePairs={canvasMetadata} />
       )}
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="CanvasInfo" {...pluginProps} />
     </CollapsibleSection>
   );
 }

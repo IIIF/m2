@@ -73,7 +73,7 @@ export function AttributionPanel({
       </CompanionWindowSection>
       )}
 
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="AttributionPanel" {...pluginProps} />
     </CompanionWindow>
   );
 }

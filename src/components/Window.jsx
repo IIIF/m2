@@ -127,7 +127,7 @@ export function Window({
           </StyledCompanionAreaRight>
         </ContentRow>
         <CompanionArea windowId={windowId} position="far-bottom" />
-        <PluginHook {...ownerState} />
+        <PluginHook targetName="Window" {...ownerState} />
       </Root>
     </ErrorBoundary>
   );

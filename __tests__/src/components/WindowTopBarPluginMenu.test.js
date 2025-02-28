@@ -3,6 +3,9 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import { WindowTopBarPluginMenu } from '../../../src/components/WindowTopBarPluginMenu';
+import { usePlugins } from '../../../src/extend/usePlugins';
+
+vi.mock('../../../src/extend/usePlugins');
 
 /** create wrapper */
 function Subject({ ...props }) {
@@ -27,6 +30,7 @@ class mockComponentA extends React.Component {
 describe('WindowTopBarPluginMenu', () => {
   describe('when there are no plugins present', () => {
     it('renders nothing (and no Button/Menu/PluginHook)', () => {
+      vi.mocked(usePlugins).mockReturnValue({ PluginComponents: [] });
       render(<Subject />);
       expect(screen.queryByTestId('testA')).not.toBeInTheDocument();
       expect(screen.queryByRole('button', { name: 'Window options' })).not.toBeInTheDocument();
@@ -35,9 +39,11 @@ describe('WindowTopBarPluginMenu', () => {
 
   describe('when there are plugins present', () => {
     let user;
+
     beforeEach(() => {
       user = userEvent.setup();
-      render(<Subject PluginComponents={[mockComponentA]} />);
+      vi.mocked(usePlugins).mockReturnValue({ PluginComponents: [mockComponentA] });
+      render(<Subject />);
     });
 
     it('renders the Button', async () => {
