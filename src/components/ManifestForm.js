@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import TextField from '@mui/material/TextField';
 import { useTranslation } from 'react-i18next';
 
@@ -39,8 +39,8 @@ export function ManifestForm({
 
   return (
     <form onSubmit={formSubmit}>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={8} md={9}>
+      <Grid2 container spacing={2}>
+        <Grid2 size={{ md: 9, sm: 8, xs: 12 }}>
           <TextField
             autoFocus
             fullWidth
@@ -51,19 +51,14 @@ export function ManifestForm({
             variant="filled"
             label={t('addManifestUrl')}
             helperText={t('addManifestUrlHelp')}
-            InputLabelProps={{
-              shrink: true,
-            }}
-            InputProps={{
-              style: { typography: 'body1' },
+            slotProps={{
+              inputLabel: { shrink: true },
+              inputProps: { style: { typography: 'body1' } },
             }}
           />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          sm={4}
-          md={3}
+        </Grid2>
+        <Grid2
+          size={{ md: 3, sm: 4, xs: 12 }}
           sx={{
             textAlign: { sm: 'inherit', xs: 'right' },
           }}
@@ -76,8 +71,8 @@ export function ManifestForm({
           <Button id="fetchBtn" type="submit" variant="contained" color="primary">
             {t('fetchManifest')}
           </Button>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </form>
   );
 }

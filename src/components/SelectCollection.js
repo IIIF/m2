@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import ListSharpIcon from '@mui/icons-material/ListSharp';
 import { useTranslation } from 'react-i18next';
@@ -18,9 +18,9 @@ export function SelectCollection({
   }, [collectionPath, manifestId, showCollectionDialog, windowId]);
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid container direction="column" alignItems="center">
-        <Typography variant="h4" paragraph>
+    <Grid2 container justifyContent="center" alignItems="center">
+      <Grid2 container direction="column" alignItems="center">
+        <Typography variant="h4" component="p">
           <em>
             {t('noItemSelected')}
           </em>
@@ -34,8 +34,8 @@ export function SelectCollection({
         >
           {t('showCollection')}
         </Button>
-      </Grid>
-    </Grid>
+      </Grid2>
+    </Grid2>
   );
 }
 

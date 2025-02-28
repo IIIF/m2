@@ -41,17 +41,17 @@ const StyledLogo = styled(Img, { name: 'ManifestListItem', slot: 'logo' })(({ th
 /** */
 const Placeholder = () => (
   <Grid2 container className={ns('manifest-list-item')} spacing={2}>
-    <Grid2 xs={3} sm={2}>
+    <Grid2 size={{ sm: 2, xs: 3 }}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={80} width={120} />
     </Grid2>
-    <Grid2 xs={9} sm={6}>
+    <Grid2 size={{ sm: 6, xs: 9 }}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
     </Grid2>
-    <Grid2 xs={8} sm={2}>
+    <Grid2 size={{ sm: 2, xs: 8 }}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="text" />
     </Grid2>
-    <Grid2 xs={4} sm={2}>
+    <Grid2 size={{ sm: 2, xs: 4 }}>
       <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={60} width={60} />
     </Grid2>
   </Grid2>
@@ -116,12 +116,11 @@ export function ManifestListItem({
       data-active={active}
     >
       {ready ? (
-        <Grid2 container className={ns('manifest-list-item')} spacing={2}>
-          <Grid2 xs={12} sm={6}>
+        <Grid2 container className={ns('manifest-list-item')} spacing={2} size="grow">
+          <Grid2 size={{ sm: 6, xs: 12 }}>
             <ButtonBase
               ref={buttonRef}
               className={ns('manifest-list-item-title')}
-              style={{ width: '100%' }}
               onClick={handleOpenButtonClick}
             >
               <Grid2
@@ -133,7 +132,7 @@ export function ManifestListItem({
                 }}
                 component="span"
               >
-                <Grid2 xs={4} sm={3} component="span">
+                <Grid2 size={{ sm: 3, xs: 4 }} component="span">
                   { thumbnail
                     ? (
                       <StyledThumbnail
@@ -154,7 +153,7 @@ export function ManifestListItem({
                     )
                     : <Skeleton sx={{ bgcolor: 'grey[300]' }} variant="rectangular" height={80} width={120} />}
                 </Grid2>
-                <Grid2 xs={8} sm={9} component="span">
+                <Grid2 size={{ sm: 9, xs: 8 }} component="span">
                   { isCollection && (
                     <Typography component="div" variant="overline">
                       { t(isMultipart ? 'multipartCollection' : 'collection') }
@@ -167,12 +166,12 @@ export function ManifestListItem({
               </Grid2>
             </ButtonBase>
           </Grid2>
-          <Grid2 xs={8} sm={4}>
+          <Grid2 size={{ sm: 4, xs: 8 }}>
             <Typography className={ns('manifest-list-item-provider')}>{provider}</Typography>
             <Typography>{t('numItems', { count: size, number: size })}</Typography>
           </Grid2>
 
-          <Grid2 xs={4} sm={2}>
+          <Grid2 size={{ sm: 2, xs: 4 }}>
             { manifestLogo
               && (
               <StyledLogo

@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/AddSharp';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMoreSharp';
 import AppBar from '@mui/material/AppBar';
 import Drawer from '@mui/material/Drawer';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Fab from '@mui/material/Fab';
 import List from '@mui/material/List';
 import Paper from '@mui/material/Paper';
@@ -106,16 +106,15 @@ export function WorkspaceAdd({
     <IIIFDropTarget onDrop={handleDrop}>
       <StyledWorkspaceAdd className={classNames(ns('workspace-add'))} ref={ref}>
         {catalog.length < 1 ? (
-          <Grid
+          <Grid2
             alignItems="center"
             container
             style={{
               height: '100%',
             }}
           >
-            <Grid
-              xs={12}
-              item
+            <Grid2
+              size={{ xs: 12 }}
             >
               <Typography
                 variant="h1"
@@ -124,8 +123,8 @@ export function WorkspaceAdd({
               >
                 {t('emptyResourceList')}
               </Typography>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         ) : (
           <Paper sx={{ margin: 2 }}>
             <Typography style={visuallyHidden} component="h1">{t('miradorResources')}</Typography>

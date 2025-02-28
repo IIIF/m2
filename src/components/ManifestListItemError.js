@@ -16,8 +16,13 @@ export function ManifestListItemError({
   return (
     <Grid2 container>
       <Grid2 container>
-        <Grid2 container xs={12} sm={6}>
-          <Grid2 xs={4} sm={3}>
+        <Grid2
+          container
+          size={{ sm: 6, xs: 12 }}
+        >
+          <Grid2
+            size={{ sm: 3, xs: 4 }}
+          >
             <Grid2 container justifyContent="center">
               <ErrorIcon sx={{
                 color: 'error.main',
@@ -27,15 +32,20 @@ export function ManifestListItemError({
               />
             </Grid2>
           </Grid2>
-          <Grid2 xs={8} sm={9}>
+          <Grid2
+            size={{ sm: 9, xs: 8 }}
+          >
             <Typography>{t('manifestError')}</Typography>
             <Typography sx={{ wordBreak: 'break-all' }}>{manifestId}</Typography>
           </Grid2>
         </Grid2>
       </Grid2>
-
       <Grid2 container>
-        <Grid2 container xs={12} sm={6} justifyContent="flex-end">
+        <Grid2
+          container
+          justifyContent="flex-end"
+          size={{ sm: 6, xs: 12 }}
+        >
           <Grid2>
             <Button onClick={() => { onDismissClick(manifestId); }}>
               {t('dismiss')}

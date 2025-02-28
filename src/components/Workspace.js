@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import classNames from 'classnames';
-import Grid from '@mui/material/Grid';
+import Grid2 from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import { visuallyHidden } from '@mui/utils';
 import { useTranslation } from 'react-i18next';
@@ -23,16 +23,15 @@ const ZeroWindows = () => {
 
   return (
     <Root>
-      <Grid
+      <Grid2
         alignItems="center"
         container
         style={{
           height: '100%',
         }}
       >
-        <Grid
-          xs={12}
-          item
+        <Grid2
+          size={{ xs: 12 }}
         >
           <Typography
             variant="h1"
@@ -41,8 +40,8 @@ const ZeroWindows = () => {
           >
             {t('welcome')}
           </Typography>
-        </Grid>
-      </Grid>
+        </Grid2>
+      </Grid2>
     </Root>
   );
 };
