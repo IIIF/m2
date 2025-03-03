@@ -1,9 +1,11 @@
 import { forwardRef, isValidElement, cloneElement } from 'react';
+import PropTypes from 'prop-types';
+import { usePlugins } from '../extend/usePlugins';
 
 /** Renders plugins */
-export const PluginHook = forwardRef((props, ref) => {
-  const { PluginComponents } = props; // eslint-disable-line react/prop-types
-  const { classes, ...otherProps } = props; // eslint-disable-line react/prop-types
+export const PluginHook = forwardRef(({ classes = {}, targetName, ...otherProps }, ref) => {
+  const { PluginComponents } = usePlugins(targetName);
+
   return PluginComponents ? (
     PluginComponents.map((PluginComponent, index) => ( // eslint-disable-line react/prop-types
       isValidElement(PluginComponent)
@@ -20,3 +22,8 @@ export const PluginHook = forwardRef((props, ref) => {
 });
 
 PluginHook.displayName = 'PluginHook';
+
+PluginHook.propTypes = {
+  classes: PropTypes.object, // eslint-disable-line react/forbid-prop-types, react/require-default-props
+  targetName: PropTypes.string.isRequired,
+};

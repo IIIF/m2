@@ -11,6 +11,7 @@ import LayersIcon from '@mui/icons-material/LayersSharp';
 import SearchIcon from '@mui/icons-material/SearchSharp';
 import { useTranslation } from 'react-i18next';
 import CanvasIndexIcon from './icons/CanvasIndexIcon';
+import { usePlugins } from '../extend/usePlugins';
 
 const Root = styled(Tabs, { name: 'WindowSideBarButtons', slot: 'root' })({
   '& .MuiTabs-flexContainer': {
@@ -85,10 +86,10 @@ export function WindowSideBarButtons({
   hasSearchResults = false,
   hasSearchService = false,
   panels = [],
-  PluginComponents = null,
   sideBarPanel = 'closed',
 }) {
   const { t } = useTranslation();
+  const { PluginComponents } = usePlugins("WindowSideBarButtons");
   /** */
   const handleChange = (event, value) => { addCompanionWindow(value); };
 

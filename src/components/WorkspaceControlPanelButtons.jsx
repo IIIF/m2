@@ -14,7 +14,7 @@ export function WorkspaceControlPanelButtons({ ...rest }) {
       <WorkspaceMenuButton />
       <WorkspaceOptionsButton />
       <FullScreenButton />
-      <PluginHook {...rest} />
+      <PluginHook targetName="WorkspaceControlPanelButtons" {...rest} />
     </>
   );
 }

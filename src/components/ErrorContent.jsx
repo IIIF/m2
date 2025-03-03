@@ -51,7 +51,7 @@ export function ErrorContent({
           </AccordionDetails>
         </InlineAccordion>
       )}
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="ErrorContent" {...pluginProps} />
     </Alert>
   );
 }

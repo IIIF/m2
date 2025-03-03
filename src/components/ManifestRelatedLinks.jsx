@@ -123,7 +123,7 @@ export function ManifestRelatedLinks({
           </>
         )}
       </StyledDl>
-      <PluginHook {...pluginProps} />
+      <PluginHook targetName="ManifestRelatedLinks" {...pluginProps} />
     </CollapsibleSection>
   );
 }

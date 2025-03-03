@@ -14,4 +14,3 @@ const CustomIcon = () => (
   }
 
   export default WrapIconComponent;
-

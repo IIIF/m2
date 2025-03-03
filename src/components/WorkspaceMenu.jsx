@@ -85,7 +85,7 @@ export function WorkspaceMenu({
             <Typography variant="body1">{t('changeTheme')}</Typography>
           </MenuItem>
         )}
-        <PluginHook {...pluginProps} />
+        <PluginHook targetName="WorkspaceMenu" {...pluginProps} />
       </Menu>
       {selectedOption === 'changeTheme' && (
         <ChangeThemeDialog

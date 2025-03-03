@@ -5,7 +5,7 @@ import { PluginHook } from './PluginHook';
 /** invisible area where background plugins can add to */
 export const BackgroundPluginArea = ({ PluginComponents = [], ...props }) => (
   <div className={ns('background-plugin-area')} style={{ display: 'none' }}>
-    <PluginHook PluginComponents={PluginComponents} {...props} />
+    <PluginHook targetName="BackgroundPluginArea" PluginComponents={PluginComponents} {...props} />
   </div>
 );
 
