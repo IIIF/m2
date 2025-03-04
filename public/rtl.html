@@ -43,8 +43,8 @@
   <h1>This is the third instance dir="rtl"</h1>
   <div id="instanceThree" dir="rtl"></div>
   <script type="module">
-    import Mirador from '../../../src';
-    import { rtl1, rtl2, rtl3 } from './mirador-configs/rtl.js';
+    import Mirador from '../src';
+    import { rtl1, rtl2, rtl3 } from '../__tests__/integration/mirador/mirador-configs/rtl.js';
     Mirador.viewer(rtl1);
     Mirador.viewer(rtl2);
     Mirador.viewer(rtl3);

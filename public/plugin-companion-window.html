@@ -1,18 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <title>Mirador - Level 0</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <title>Mirador</title>
   </head>
   <body>
     <div id="mirador" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;"></div>
     <script type="module">
-      import Mirador from '../../../src';
-      import config from './mirador-configs/level0.js';
-      Mirador.viewer(config)
-    </script>
+      import Mirador from '../src';
+      import settings from '../__tests__/integration/mirador/mirador-configs/plugin-companion-window.js';
+      Mirador.viewer(settings.config, settings.plugins);
+     </script>
   </body>
 </html>
